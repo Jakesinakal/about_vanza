@@ -20,14 +20,14 @@ const LINKS = [
   },
   {
     label: 'LinkedIn',
-    value: 'linkedin.com/in/your-profile',
+    value: 'linkedin/VanZa',
     href: PERSONAL_INFO.linkedin,
     icon: IconBrandLinkedin,
     external: true,
   },
   {
     label: 'GitHub',
-    value: 'github.com/your-username',
+    value: 'github.com/Jakesinakal',
     href: PERSONAL_INFO.github,
     icon: IconBrandGithub,
     external: true,

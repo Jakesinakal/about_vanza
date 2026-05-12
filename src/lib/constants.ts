@@ -1,13 +1,13 @@
 import type { Project, TimelineMilestone, MotivationCard, Activity } from './types';
 
 export const PERSONAL_INFO = {
-  name: 'Jake',
-  fullName: 'Your Name',
+  name: 'Van Za',
+  fullName: 'Van Za Aimar',
   title: 'Data Engineer & Full-Stack Developer',
-  location: 'Jakarta, Indonesia',
-  email: 'hello@yourname.dev',
-  linkedin: 'https://linkedin.com/in/your-profile',
-  github: 'https://github.com/your-username',
+  location: 'Cirebon, Indonesia',
+  email: 'officialvanza.id@gmail.com',
+  linkedin: 'https://linkedin.com/in/vanzaaimarrochman',
+  github: 'https://github.com/Jakesinakal',
   resume: '/resume.pdf',
   bio: [
     'I started as a nuclear engineer, building rigorous foundations in complex systems and mathematics. That foundation led me to discover my true passion: building data systems and software products that solve real problems at scale.',
@@ -106,17 +106,17 @@ export const PROJECTS: Project[] = [
 
 export const MOTIVATION_CARDS: MotivationCard[] = [
   {
-    id: 'drives',
-    label: 'What Drives Me',
+    id: 'turning',
+    label: 'Turning Points',
     content:
-      'Building systems that handle complexity gracefully — where data flows reliably and code is a pleasure to maintain.',
+      'My thesis on autonomous robots taught me how to code. However, robotics didn\’t really interest me. It was data infrastructure that unexpectedly caught my interest. That shift led me into the world of data.',
     rotation: '-rotate-1',
   },
   {
-    id: 'headed',
-    label: "Where I'm Headed",
+    id: 'drives',
+    label: "What Drives Me",
     content:
-      'The intersection of excellent data infrastructure and great product — systems that are both technically sound and deeply useful.',
+      'Building robust, end-to-end data infrastructure that scales with complexity. That\'s what I\'m here to do.',
     rotation: 'rotate-1',
   },
 ];

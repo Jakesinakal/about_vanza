@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { IconMapPin } from '@tabler/icons-react';
 import { motion } from 'framer-motion';
 import { Star, CurvedArrow, Squiggle } from './ui/SketchElements';
@@ -44,19 +45,19 @@ export default function Hero() {
               className="text-lg leading-relaxed text-slate-600 dark:text-slate-300"
             >
               I am a{' '}
-              <span className="font-semibold text-cyan-500">nuclear engineer</span>{' '}
-              who transitioned into{' '}
+              <span className="font-semibold text-cyan-500">Nuclear Engineer</span>{' '}
+              interested and transitioning into{' '}
               <span className="font-semibold text-violet-600 dark:text-violet-400">
-                data engineering and full-stack development
+                Data Infrastructure
               </span>
               .
             </motion.p>
 
             <motion.div {...fadeUp(0.4)} className="relative">
               <p className="text-base leading-[1.8] text-slate-600 dark:text-slate-400 max-w-lg">
-                I design scalable data pipelines, architect ETL/ELT workflows, and build
-                full-stack applications that make data actionable. I care about performance,
-                reliability, and code that&apos;s a pleasure to work with.
+                From nuclear engineering to data systems — I apply rigorous problem-solving
+                to design scalable pipelines, architect ETL/ELT workflows, and build
+                full-stack applications that turn raw data into real insight.
               </p>
               <Squiggle className="absolute -bottom-5 left-0 w-16 h-3 text-cyan-500/40" />
             </motion.div>
@@ -72,11 +73,8 @@ export default function Hero() {
           >
             {/* Photo + decorations */}
             <div className="relative">
-              <div className="w-56 h-56 lg:w-64 lg:h-64 rounded-2xl bg-surface dark:bg-midnight-soft border border-slate-200 dark:border-slate-800 flex items-center justify-center overflow-hidden">
-                {/* Replace with <Image src="/photo.jpg" fill alt="..." /> when you have a photo */}
-                <span className="text-7xl font-bold text-cyan-500/60 select-none">
-                  {PERSONAL_INFO.name.charAt(0)}
-                </span>
+              <div className="relative w-56 h-56 lg:w-64 lg:h-64 bg-surface dark:bg-midnight-soft border border-slate-200 dark:border-slate-800 overflow-hidden" style={{ borderRadius: '1.25rem' }}>
+                <Image src="/photo.jpg" fill alt={PERSONAL_INFO.fullName} className="object-cover" />
               </div>
 
               <Star className="absolute -top-4 -right-4 w-7 h-7 text-cyan-500" />

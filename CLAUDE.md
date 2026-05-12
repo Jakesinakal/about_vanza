@@ -37,13 +37,13 @@ Dark mode uses class strategy via `@variant dark (&:where(.dark, .dark *))`. `la
 
 **Content** — `src/lib/constants.ts` is the single source of truth for all personal data (`PERSONAL_INFO`, `PROJECTS`, `JOURNEY`, `ACTIVITIES`, `MOTIVATION_CARDS`, `NAV_LINKS`). Edit here to update the site. Types for each constant live in `src/lib/types.ts`.
 
-**Page assembly** — `src/app/page.tsx` imports and stacks section components: `Header`, `Hero`, `Activities`, `Projects`, `About`, `Contact`, `Footer`. The journey/timeline is rendered by `Timeline.tsx` inside `About.tsx`. Section `id` attributes must stay in sync with the hardcoded `sectionIds` array in `Header.tsx` (line 22): `['projects', 'about', 'journey', 'contact']`.
+**Page assembly** — `src/app/page.tsx` imports and stacks section components: `Header`, `Hero`, `Activities`, `Projects`, `About`, `Contact`, `Footer`. The journey/timeline is rendered by `Timeline.tsx` inside `About.tsx`. Section `id` attributes must stay in sync with the hardcoded `sectionIds` array in `Header.tsx` (line 23): `['hero', 'activities', 'projects', 'about', 'contact']`.
 
 **Activities carousel** — `Activities.tsx` uses a direct-DOM pattern to avoid re-renders during animation. The disc rotation is stored in `angleRef` (a ref) and written directly to `discRef.current.style.transform` on every frame. React state (`activeIndex`) is only used for the dot-indicator UI. Drag interaction uses window-level `pointermove`/`pointerup` pointer-event listeners (added on `pointerdown`, torn down on release) with `{ passive: false }` so `preventDefault()` blocks scroll. `data-nav="true"` on arrow/dot buttons excludes them from triggering a drag. After release, a `requestAnimationFrame` momentum loop decays velocity with a 260 ms half-life, then calls `snapToNearest()`.
 
 **Theme** — `ThemeProvider` (client component) exposes `useTheme()` for `{ theme, toggleTheme }`. Only `Header.tsx` uses it directly.
 
-**Utilities** — `src/lib/utils.ts` exports `cn()` (className joiner) and `scrollTo(id)`.
+**Utilities** — `src/lib/utils.ts` exports `cn()` (className joiner) and `scrollTo(id)`. Decorative SVG primitives (stars, squiggles, etc.) live in `src/components/ui/SketchElements.tsx`.
 
 ## Adding a real profile photo
 

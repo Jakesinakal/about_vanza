@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import {
   IconCode, IconPencil, IconTrophy, IconUsers, IconRocket,
   IconChevronLeft, IconChevronRight,
@@ -15,145 +16,48 @@ const ICONS: Record<Activity['icon'], React.ElementType> = {
 };
 
 const ACCENT: Record<Activity['accent'], {
-  bg: string; text: string; overlay: string; label: string;
+  bg: string; text: string; label: string;
 }> = {
-  cyan:    { bg: 'bg-cyan-500/10',    text: 'text-cyan-500',    overlay: 'bg-cyan-950/90',    label: 'text-cyan-400'    },
-  violet:  { bg: 'bg-violet-500/10',  text: 'text-violet-500',  overlay: 'bg-violet-950/90',  label: 'text-violet-400'  },
-  amber:   { bg: 'bg-amber-500/10',   text: 'text-amber-500',   overlay: 'bg-amber-950/90',   label: 'text-amber-400'   },
-  emerald: { bg: 'bg-emerald-500/10', text: 'text-emerald-500', overlay: 'bg-emerald-950/90', label: 'text-emerald-400' },
-  rose:    { bg: 'bg-rose-500/10',    text: 'text-rose-500',    overlay: 'bg-rose-950/90',    label: 'text-rose-400'    },
+  cyan:    { bg: 'bg-cyan-500/10',    text: 'text-cyan-500',    label: 'text-cyan-400'    },
+  violet:  { bg: 'bg-violet-500/10',  text: 'text-violet-500',  label: 'text-violet-400'  },
+  amber:   { bg: 'bg-amber-500/10',   text: 'text-amber-500',   label: 'text-amber-400'   },
+  emerald: { bg: 'bg-emerald-500/10', text: 'text-emerald-500', label: 'text-emerald-400' },
+  rose:    { bg: 'bg-rose-500/10',    text: 'text-rose-500',    label: 'text-rose-400'    },
 };
 
-const COUNT        = ACTIVITIES.length;
-const DEG          = 360 / COUNT;
-const RADIUS       = 280;
-const SENSITIVITY  = DEG / 300;
-const HALF_LIFE    = 260;
-const MIN_VEL      = 0.006;
-const DRAG_MIN     = 6;
+const COUNT  = ACTIVITIES.length;
+const DEG    = 360 / COUNT;
+const RADIUS = 280;
 
 export default function Activities() {
-  const discRef     = useRef<HTMLDivElement>(null);
-  const angleRef    = useRef(0);
-  const velocityRef = useRef(0);
-  const suppressRef = useRef(false);
-  const rafId       = useRef<number | null>(null);
+  const discRef  = useRef<HTMLDivElement>(null);
+  const angleRef = useRef(0);
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
-  const cancelMomentum = () => {
-    if (rafId.current !== null) {
-      cancelAnimationFrame(rafId.current);
-      rafId.current = null;
-    }
-  };
-
-  const writeAngle = (angle: number, withTransition: boolean) => {
+  const writeAngle = (angle: number) => {
     if (!discRef.current) return;
     angleRef.current = angle;
-    discRef.current.style.transition = withTransition
-      ? 'transform 0.7s cubic-bezier(0.22, 1, 0.36, 1)'
-      : 'none';
-    discRef.current.style.transform = `rotateY(${angle}deg)`;
+    discRef.current.style.transition = 'transform 0.7s cubic-bezier(0.22, 1, 0.36, 1)';
+    discRef.current.style.transform  = `rotateY(${angle}deg)`;
   };
 
-  const snapToNearest = useCallback(() => {
-    const steps = Math.round(-angleRef.current / DEG);
-    writeAngle(-steps * DEG, true);
-    setActiveIndex(((steps % COUNT) + COUNT) % COUNT);
-  }, []);
-
   const navigate = useCallback((dir: 1 | -1) => {
-    cancelMomentum();
     const steps = Math.round(-angleRef.current / DEG) + dir;
-    writeAngle(-steps * DEG, true);
+    writeAngle(-steps * DEG);
     setActiveIndex(((steps % COUNT) + COUNT) % COUNT);
   }, []);
 
   const goTo = useCallback((target: number) => {
-    cancelMomentum();
     const steps   = Math.round(-angleRef.current / DEG);
     const current = ((steps % COUNT) + COUNT) % COUNT;
     let   diff    = target - current;
     if (diff >  COUNT / 2) diff -= COUNT;
     if (diff < -COUNT / 2) diff += COUNT;
-    writeAngle(-(steps + diff) * DEG, true);
+    writeAngle(-(steps + diff) * DEG);
     setActiveIndex(target);
   }, []);
-
-  const launchMomentum = useCallback((initialVel: number) => {
-    let vel    = initialVel;
-    let lastTs = performance.now();
-
-    const tick = (ts: number) => {
-      const dt = Math.min(ts - lastTs, 50);
-      lastTs   = ts;
-      vel     *= Math.pow(0.5, dt / HALF_LIFE);
-      writeAngle(angleRef.current + vel * dt, false);
-
-      if (Math.abs(vel) > MIN_VEL) {
-        rafId.current = requestAnimationFrame(tick);
-      } else {
-        rafId.current = null;
-        snapToNearest();
-      }
-    };
-
-    rafId.current = requestAnimationFrame(tick);
-  }, [snapToNearest]);
-
-  const onPointerDown = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
-    if (e.button > 0) return;
-    if ((e.target as HTMLElement).closest('[data-nav]')) return;
-
-    cancelMomentum();
-    velocityRef.current = 0;
-
-    const startAngle = angleRef.current;
-    const startX     = e.clientX;
-    let   lastX      = e.clientX;
-    let   lastT      = performance.now();
-    let   dragged    = false;
-
-    writeAngle(startAngle, false);
-
-    const onMove = (ev: PointerEvent) => {
-      ev.preventDefault();
-      const now = performance.now();
-      const dt  = now - lastT;
-      const dx  = ev.clientX - lastX;
-      if (dt > 0) {
-        velocityRef.current = 0.7 * velocityRef.current + 0.3 * ((dx * SENSITIVITY) / dt);
-      }
-      lastX = ev.clientX;
-      lastT = now;
-      const totalDx = ev.clientX - startX;
-      if (Math.abs(totalDx) > DRAG_MIN) dragged = true;
-      writeAngle(startAngle + totalDx * SENSITIVITY, false);
-    };
-
-    const onUp = () => {
-      window.removeEventListener('pointermove', onMove);
-      window.removeEventListener('pointerup',     onUp);
-      window.removeEventListener('pointercancel', onUp);
-      if (dragged) {
-        suppressRef.current = true;
-        setTimeout(() => { suppressRef.current = false; }, 80);
-      }
-      if (Math.abs(velocityRef.current) > MIN_VEL) {
-        launchMomentum(velocityRef.current);
-      } else {
-        snapToNearest();
-      }
-    };
-
-    window.addEventListener('pointermove', onMove, { passive: false });
-    window.addEventListener('pointerup',     onUp);
-    window.addEventListener('pointercancel', onUp);
-  }, [launchMomentum, snapToNearest]);
-
-  useEffect(() => cancelMomentum, []);
 
   return (
     <section id="activities" className="py-32 overflow-hidden">
@@ -180,9 +84,8 @@ export default function Activities() {
 
         {/* Carousel stage */}
         <div
-          className="relative select-none cursor-grab active:cursor-grabbing"
-          style={{ perspective: '1100px', height: '380px', touchAction: 'none' }}
-          onPointerDown={onPointerDown}
+          className="relative select-none"
+          style={{ perspective: '1100px', height: '380px' }}
         >
           <div
             ref={discRef}
@@ -203,7 +106,7 @@ export default function Activities() {
               return (
                 <button
                   key={activity.id}
-                  onClick={() => { if (!suppressRef.current) goTo(i); }}
+                  onClick={() => goTo(i)}
                   style={{
                     position: 'absolute',
                     left: '-140px',
@@ -215,41 +118,97 @@ export default function Activities() {
                     cursor: i === activeIndex ? 'default' : 'pointer',
                   }}
                   aria-label={activity.title}
-                  data-nav={i === activeIndex ? 'true' : undefined}
                   onMouseEnter={() => { if (i === activeIndex) setHoveredIndex(i); }}
                   onMouseLeave={() => setHoveredIndex(null)}
                 >
-                  {/* Card base */}
                   <div className="relative w-full h-full rounded-2xl border border-slate-200 dark:border-slate-800 bg-surface dark:bg-midnight-soft overflow-hidden flex flex-col text-left">
 
-                    {/* Normal state content */}
-                    <div className="relative z-10 flex flex-col h-full p-6">
-                      <div className={`w-11 h-11 rounded-xl ${accent.bg} flex items-center justify-center mb-5 shrink-0`}>
-                        <Icon size={22} stroke={1.5} className={accent.text} />
+                    {activity.image ? (
+                      /* ── Photo card ── */
+                      <>
+                        {/* Image with subtle zoom on hover */}
+                        <div className="absolute inset-0 overflow-hidden rounded-2xl">
+                          <Image
+                            src={activity.image}
+                            alt={activity.title}
+                            fill
+                            className="object-cover"
+                            sizes="280px"
+                            style={{
+                              transform: hoveredIndex === i ? 'scale(1.07)' : 'scale(1)',
+                              transition: 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)',
+                            }}
+                          />
+                        </div>
+                        {/* Permanent bottom gradient */}
+                        <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                        {/* Normal state: title at bottom */}
+                        <div
+                          className="relative z-10 flex flex-col justify-end h-full p-5"
+                          style={{
+                            opacity: hoveredIndex === i ? 0 : 1,
+                            transition: 'opacity 0.25s ease',
+                          }}
+                        >
+                          <p className={`text-[10px] font-semibold tracking-widest uppercase mb-1 ${accent.label}`}>
+                            {activity.category}
+                          </p>
+                          <h3 className="text-base font-semibold text-white leading-tight">
+                            {activity.title}
+                          </h3>
+                        </div>
+                      </>
+                    ) : (
+                      /* ── Icon card (no photo) ── */
+                      <div className="relative z-10 flex flex-col h-full p-6">
+                        <div className={`w-11 h-11 rounded-xl ${accent.bg} flex items-center justify-center mb-5 shrink-0`}>
+                          <Icon size={22} stroke={1.5} className={accent.text} />
+                        </div>
+                        <p className={`text-[10px] font-semibold tracking-widest uppercase mb-2 ${accent.text}`}>
+                          {activity.category}
+                        </p>
+                        <h3 className="text-base font-semibold text-slate-800 dark:text-slate-100 leading-tight">
+                          {activity.title}
+                        </h3>
                       </div>
-                      <p className={`text-[10px] font-semibold tracking-widest uppercase mb-2 ${accent.text}`}>
-                        {activity.category}
-                      </p>
-                      <h3 className="text-base font-semibold text-slate-800 dark:text-slate-100 leading-tight">
-                        {activity.title}
-                      </h3>
-                    </div>
+                    )}
 
-                    {/* Hover reveal overlay — only triggers on the active (front) card */}
+                    {/* Hover reveal overlay — transparent gradient so background shows through */}
                     <div
-                      className={`absolute inset-0 z-20 flex flex-col justify-end p-6 ${accent.overlay}`}
+                      className="absolute inset-0 z-20 flex flex-col justify-end p-6 bg-gradient-to-t from-black/80 via-black/40 to-transparent"
                       style={{
                         transform: hoveredIndex === i ? 'translateY(0)' : 'translateY(100%)',
                         transition: 'transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)',
                       }}
                     >
-                      <p className={`text-[10px] font-semibold tracking-widest uppercase mb-1.5 ${accent.label}`}>
+                      <p
+                        className={`text-[10px] font-semibold tracking-widest uppercase mb-1.5 ${accent.label}`}
+                        style={{
+                          opacity: hoveredIndex === i ? 1 : 0,
+                          transform: hoveredIndex === i ? 'translateY(0)' : 'translateY(10px)',
+                          transition: 'opacity 0.35s 0.15s ease, transform 0.35s 0.15s ease',
+                        }}
+                      >
                         {activity.category}
                       </p>
-                      <h3 className="text-base font-semibold text-white leading-tight mb-3">
+                      <h3
+                        className="text-base font-semibold text-white leading-tight mb-3"
+                        style={{
+                          opacity: hoveredIndex === i ? 1 : 0,
+                          transform: hoveredIndex === i ? 'translateY(0)' : 'translateY(10px)',
+                          transition: 'opacity 0.35s 0.22s ease, transform 0.35s 0.22s ease',
+                        }}
+                      >
                         {activity.title}
                       </h3>
-                      <p className="text-sm leading-relaxed text-slate-300">
+                      <p
+                        className="text-sm leading-relaxed text-slate-300"
+                        style={{
+                          opacity: hoveredIndex === i ? 1 : 0,
+                          transform: hoveredIndex === i ? 'translateY(0)' : 'translateY(10px)',
+                          transition: 'opacity 0.35s 0.30s ease, transform 0.35s 0.30s ease',
+                        }}
+                      >
                         {activity.description}
                       </p>
                     </div>
@@ -260,7 +219,6 @@ export default function Activities() {
           </div>
 
           <button
-            data-nav="true"
             onClick={() => navigate(-1)}
             className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-11 h-11 flex items-center justify-center rounded-full bg-slate-900/40 dark:bg-white/10 text-white backdrop-blur-sm opacity-50 hover:opacity-95 transition-opacity duration-200"
             aria-label="Previous activity"
@@ -268,7 +226,6 @@ export default function Activities() {
             <IconChevronLeft size={20} />
           </button>
           <button
-            data-nav="true"
             onClick={() => navigate(1)}
             className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-11 h-11 flex items-center justify-center rounded-full bg-slate-900/40 dark:bg-white/10 text-white backdrop-blur-sm opacity-50 hover:opacity-95 transition-opacity duration-200"
             aria-label="Next activity"
@@ -282,7 +239,6 @@ export default function Activities() {
           {ACTIVITIES.map((_, i) => (
             <button
               key={i}
-              data-nav="true"
               onClick={() => goTo(i)}
               className={`rounded-full transition-all duration-300 ${
                 i === activeIndex

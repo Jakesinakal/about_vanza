@@ -130,6 +130,7 @@ export const ACTIVITIES: Activity[] = [
       'Actively contributing to open source data engineering tools — submitting PRs to Apache ecosystem projects and dbt community packages.',
     icon: 'code',
     accent: 'cyan',
+    image: '/images/activities/skripsi.jpg',
   },
   {
     id: '2',

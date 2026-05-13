@@ -31,4 +31,5 @@ export interface Activity {
   description: string;
   icon: 'code' | 'pencil' | 'trophy' | 'users' | 'rocket';
   accent: 'cyan' | 'violet' | 'amber' | 'emerald' | 'rose';
+  image?: string; // path relative to /public, e.g. '/images/activities/open-source.jpg'
 }

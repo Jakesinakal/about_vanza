@@ -14,33 +14,33 @@ const ICONS: Record<Activity['icon'], React.ElementType> = {
   users: IconUsers, rocket: IconRocket,
 };
 
-const ACCENT: Record<Activity['accent'], { bg: string; text: string }> = {
-  cyan:    { bg: 'bg-cyan-500/10',    text: 'text-cyan-500'    },
-  violet:  { bg: 'bg-violet-500/10',  text: 'text-violet-500'  },
-  amber:   { bg: 'bg-amber-500/10',   text: 'text-amber-500'   },
-  emerald: { bg: 'bg-emerald-500/10', text: 'text-emerald-500' },
-  rose:    { bg: 'bg-rose-500/10',    text: 'text-rose-500'    },
+const ACCENT: Record<Activity['accent'], {
+  bg: string; text: string; overlay: string; label: string;
+}> = {
+  cyan:    { bg: 'bg-cyan-500/10',    text: 'text-cyan-500',    overlay: 'bg-cyan-950/90',    label: 'text-cyan-400'    },
+  violet:  { bg: 'bg-violet-500/10',  text: 'text-violet-500',  overlay: 'bg-violet-950/90',  label: 'text-violet-400'  },
+  amber:   { bg: 'bg-amber-500/10',   text: 'text-amber-500',   overlay: 'bg-amber-950/90',   label: 'text-amber-400'   },
+  emerald: { bg: 'bg-emerald-500/10', text: 'text-emerald-500', overlay: 'bg-emerald-950/90', label: 'text-emerald-400' },
+  rose:    { bg: 'bg-rose-500/10',    text: 'text-rose-500',    overlay: 'bg-rose-950/90',    label: 'text-rose-400'    },
 };
 
-const COUNT        = ACTIVITIES.length; // 5
-const DEG          = 360 / COUNT;       // 72° per step
-const RADIUS       = 280;              // disc depth in px
-const SENSITIVITY  = DEG / 300;        // deg per px dragged
-const HALF_LIFE    = 260;              // ms — momentum deceleration half-life
-const MIN_VEL      = 0.006;            // deg/ms — stop threshold for momentum
-const DRAG_MIN     = 6;               // px — minimum move to count as drag
+const COUNT        = ACTIVITIES.length;
+const DEG          = 360 / COUNT;
+const RADIUS       = 280;
+const SENSITIVITY  = DEG / 300;
+const HALF_LIFE    = 260;
+const MIN_VEL      = 0.006;
+const DRAG_MIN     = 6;
 
 export default function Activities() {
   const discRef     = useRef<HTMLDivElement>(null);
-  const angleRef    = useRef(0);          // continuous rotation (source of truth for disc)
-  const velocityRef = useRef(0);          // deg/ms, smoothed during drag
-  const suppressRef = useRef(false);      // suppress card clicks after a drag
+  const angleRef    = useRef(0);
+  const velocityRef = useRef(0);
+  const suppressRef = useRef(false);
   const rafId       = useRef<number | null>(null);
 
-  // React state only for the dot-indicator UI
   const [activeIndex, setActiveIndex] = useState(0);
-
-  // ── Core helpers ─────────────────────────────────────────────────────────
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const cancelMomentum = () => {
     if (rafId.current !== null) {
@@ -49,7 +49,6 @@ export default function Activities() {
     }
   };
 
-  // Write rotation to the disc DOM node directly — skip React for every frame.
   const writeAngle = (angle: number, withTransition: boolean) => {
     if (!discRef.current) return;
     angleRef.current = angle;
@@ -64,8 +63,6 @@ export default function Activities() {
     writeAngle(-steps * DEG, true);
     setActiveIndex(((steps % COUNT) + COUNT) % COUNT);
   }, []);
-
-  // ── Navigation (arrow buttons & dots) ────────────────────────────────────
 
   const navigate = useCallback((dir: 1 | -1) => {
     cancelMomentum();
@@ -85,16 +82,14 @@ export default function Activities() {
     setActiveIndex(target);
   }, []);
 
-  // ── Momentum animation ────────────────────────────────────────────────────
-
   const launchMomentum = useCallback((initialVel: number) => {
     let vel    = initialVel;
     let lastTs = performance.now();
 
     const tick = (ts: number) => {
-      const dt = Math.min(ts - lastTs, 50); // cap at 50 ms (handles tab switches)
+      const dt = Math.min(ts - lastTs, 50);
       lastTs   = ts;
-      vel     *= Math.pow(0.5, dt / HALF_LIFE); // exponential decay
+      vel     *= Math.pow(0.5, dt / HALF_LIFE);
       writeAngle(angleRef.current + vel * dt, false);
 
       if (Math.abs(vel) > MIN_VEL) {
@@ -108,10 +103,7 @@ export default function Activities() {
     rafId.current = requestAnimationFrame(tick);
   }, [snapToNearest]);
 
-  // ── Drag start (pointer events) ──────────────────────────────────────────
-
   const onPointerDown = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
-    // Only left-button / primary touch; skip if clicking a nav control
     if (e.button > 0) return;
     if ((e.target as HTMLElement).closest('[data-nav]')) return;
 
@@ -124,25 +116,20 @@ export default function Activities() {
     let   lastT      = performance.now();
     let   dragged    = false;
 
-    writeAngle(startAngle, false); // kill any running CSS transition
+    writeAngle(startAngle, false);
 
     const onMove = (ev: PointerEvent) => {
-      ev.preventDefault(); // prevent scroll on touch/trackpad
-
+      ev.preventDefault();
       const now = performance.now();
       const dt  = now - lastT;
       const dx  = ev.clientX - lastX;
-
       if (dt > 0) {
-        // Exponential-smoothed velocity: responsive but not noisy
         velocityRef.current = 0.7 * velocityRef.current + 0.3 * ((dx * SENSITIVITY) / dt);
       }
       lastX = ev.clientX;
       lastT = now;
-
       const totalDx = ev.clientX - startX;
       if (Math.abs(totalDx) > DRAG_MIN) dragged = true;
-
       writeAngle(startAngle + totalDx * SENSITIVITY, false);
     };
 
@@ -150,13 +137,10 @@ export default function Activities() {
       window.removeEventListener('pointermove', onMove);
       window.removeEventListener('pointerup',     onUp);
       window.removeEventListener('pointercancel', onUp);
-
       if (dragged) {
-        // Briefly suppress click events that fire right after pointerup
         suppressRef.current = true;
         setTimeout(() => { suppressRef.current = false; }, 80);
       }
-
       if (Math.abs(velocityRef.current) > MIN_VEL) {
         launchMomentum(velocityRef.current);
       } else {
@@ -169,10 +153,7 @@ export default function Activities() {
     window.addEventListener('pointercancel', onUp);
   }, [launchMomentum, snapToNearest]);
 
-  // Cleanup rAF on unmount
   useEffect(() => cancelMomentum, []);
-
-  // ── Render ────────────────────────────────────────────────────────────────
 
   return (
     <section id="activities" className="py-32 overflow-hidden">
@@ -203,7 +184,6 @@ export default function Activities() {
           style={{ perspective: '1100px', height: '380px', touchAction: 'none' }}
           onPointerDown={onPointerDown}
         >
-          {/* Zero-size pivot — rotates the whole disc */}
           <div
             ref={discRef}
             style={{
@@ -235,27 +215,50 @@ export default function Activities() {
                     cursor: i === activeIndex ? 'default' : 'pointer',
                   }}
                   aria-label={activity.title}
+                  data-nav={i === activeIndex ? 'true' : undefined}
+                  onMouseEnter={() => { if (i === activeIndex) setHoveredIndex(i); }}
+                  onMouseLeave={() => setHoveredIndex(null)}
                 >
-                  <div className="w-full h-full rounded-2xl border border-slate-200 dark:border-slate-800 bg-surface dark:bg-midnight-soft p-6 flex flex-col text-left">
-                    <div className={`w-11 h-11 rounded-xl ${accent.bg} flex items-center justify-center mb-5 shrink-0`}>
-                      <Icon size={22} stroke={1.5} className={accent.text} />
+                  {/* Card base */}
+                  <div className="relative w-full h-full rounded-2xl border border-slate-200 dark:border-slate-800 bg-surface dark:bg-midnight-soft overflow-hidden flex flex-col text-left">
+
+                    {/* Normal state content */}
+                    <div className="relative z-10 flex flex-col h-full p-6">
+                      <div className={`w-11 h-11 rounded-xl ${accent.bg} flex items-center justify-center mb-5 shrink-0`}>
+                        <Icon size={22} stroke={1.5} className={accent.text} />
+                      </div>
+                      <p className={`text-[10px] font-semibold tracking-widest uppercase mb-2 ${accent.text}`}>
+                        {activity.category}
+                      </p>
+                      <h3 className="text-base font-semibold text-slate-800 dark:text-slate-100 leading-tight">
+                        {activity.title}
+                      </h3>
                     </div>
-                    <p className={`text-[10px] font-semibold tracking-widest uppercase mb-2 ${accent.text}`}>
-                      {activity.category}
-                    </p>
-                    <h3 className="text-base font-semibold text-slate-800 dark:text-slate-100 leading-tight mb-3">
-                      {activity.title}
-                    </h3>
-                    <p className="text-sm leading-relaxed text-slate-500 dark:text-slate-400 flex-1">
-                      {activity.description}
-                    </p>
+
+                    {/* Hover reveal overlay — only triggers on the active (front) card */}
+                    <div
+                      className={`absolute inset-0 z-20 flex flex-col justify-end p-6 ${accent.overlay}`}
+                      style={{
+                        transform: hoveredIndex === i ? 'translateY(0)' : 'translateY(100%)',
+                        transition: 'transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)',
+                      }}
+                    >
+                      <p className={`text-[10px] font-semibold tracking-widest uppercase mb-1.5 ${accent.label}`}>
+                        {activity.category}
+                      </p>
+                      <h3 className="text-base font-semibold text-white leading-tight mb-3">
+                        {activity.title}
+                      </h3>
+                      <p className="text-sm leading-relaxed text-slate-300">
+                        {activity.description}
+                      </p>
+                    </div>
                   </div>
                 </button>
               );
             })}
           </div>
 
-          {/* data-nav prevents these from triggering a drag start */}
           <button
             data-nav="true"
             onClick={() => navigate(-1)}

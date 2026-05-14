@@ -124,49 +124,71 @@ export const MOTIVATION_CARDS: MotivationCard[] = [
 export const ACTIVITIES: Activity[] = [
   {
     id: '1',
-    title: 'Open Source Contributions',
-    category: 'Development',
+    slug: 'story',
+    title: 'My Robotic Thesis Journey',
+    category: 'Story',
     description:
-      'Actively contributing to open source data engineering tools — submitting PRs to Apache ecosystem projects and dbt community packages.',
+      'Sabar Masih Mikir',
     icon: 'code',
     accent: 'cyan',
     image: '/images/activities/skripsi.jpg',
   },
   {
     id: '2',
-    title: 'Technical Writing',
-    category: 'Content Creation',
+    slug: 'cikande',
+    title: 'One-Month Journey of Radiation Decontamination in Cikande',
+    category: 'Story',
     description:
-      'Publishing in-depth articles on data engineering patterns, pipeline architecture, and SQL optimization on personal blog and Medium.',
+      'One month. Hazmat suits. A national radiation crisis. Here\'s what Cikande taught me about the professional world that no university ever could.',
     icon: 'pencil',
-    accent: 'violet',
+    accent: 'cyan',
+    image: '/images/activities/cikande.jpg',
+    sections: [
+      {
+        heading: 'The Late Call That Changed Everything',
+        body: 'As a fresh graduate searching for my first foothold in the professional world, I was met with shocking news: the discovery of radiation-exposed shrimp. This wasn\'t just a regular environmental issue; it was a disaster on a national scale.\n\nInitially, I was just a spectator. However, fate had other plans. In the second month of the decontamination project, I received an unexpected invitation to join the team. Despite being late to the game, I didn\'t think twice. I stepped into Cikande, heading into a project that would forever change my perspective on the working world.',
+      },
+      {
+        heading: 'Field Reality: Hazmat Suits, Blistering Sun, and Campus Theories',
+        body: 'My first day on site felt like entering another dimension. If anyone asks how much of my college knowledge was applicable here, to be honest, it was probably only about 10–20%. However, the problem-solving mindset forged during my university years became my absolute greatest weapon.\n\nThe first three days were a massive culture shock and a grueling physical test. It was my first time wearing a full hazmat suit under the scorching Cikande sun. It was incredibly sweltering, sweat poured endlessly, and dehydration became the ultimate enemy.\n\nDuring this adaptation phase, I chose to observe. I paid close attention to the seniors\' workflows, mentally noting every detail so I could quickly catch up to their rhythm and become a reliable part of a solid team.',
+      },
+      {
+        heading: 'The Rhythm of Decontamination: From Pebbles to Midnight Mapping',
+        body: 'Once I found my rhythm, my confidence grew. I started to speak up and share my ideas. Our daily tasks were highly specific and required immense precision.\n\nWe cleared radiation-exposed soil, rocks, and trash — the majority of the waste consisted of pebbles and stones mixed with dirt. The collected waste had to be precisely labeled and safely transported to a specialized storage facility. Documentation was our lifeline; the movement of the waste was strictly monitored every single day without exception. At the end of an exhausting day, we still sat down together for daily mapping, strategizing which areas needed to be decontaminated the next day.\n\nThe most intense moment occurred a week before the deadline set by the Ministry of Environment and Forestry (KLHK). We had to work at maximum speed, often pulling overtime until midnight. Under this immense time pressure, we truly learned what it meant to work efficiently.',
+      },
+      {
+        heading: 'Lessons Behind a National Disaster',
+        body: 'The professional world turned out to be vastly different from university life. Yet, there is one crucial common thread between the two: Communication.\n\nIn this project, I learned to set my ego aside. Collaborating in the field demands extra patience and mutual understanding. What made this experience so invaluable was the opportunity to interact with various key stakeholders — from the affected local residents and experts from KBRN (Chemical, Biological, Radiological, and Nuclear defense) and NUBIKA, to representatives from KLHK.\n\nThere was a profound sense of pride in playing a role in resolving this national crisis alongside them.',
+      },
+      {
+        heading: 'Epilogue: A New Perspective',
+        body: 'One month flew by. As I took off my hazmat suit for the last time, the view of every site in front of me was vastly different from when we first started. They were no longer "dangerous" zones, but lands that were now safe enough for the local community to use once again.',
+      },
+    ],
+    quote: 'Cikande gave me much more than just my first work experience. It gave me a brand-new perspective on the professional world that I had never even imagined before. Leaving this project, I know one thing for sure: I am more than ready to face whatever challenges my next career journey holds.',
   },
   {
     id: '3',
-    title: 'Data Competitions',
-    category: 'Learning',
-    description:
-      'Participating in Kaggle and analytics competitions to sharpen ML intuition and explore new approaches to real-world datasets.',
-    icon: 'trophy',
-    accent: 'amber',
-  },
-  {
-    id: '4',
+    slug: 'soon',
     title: 'Mentoring Junior Devs',
-    category: 'Community',
+    category: 'Coming Soon',
     description:
       'Mentoring engineers transitioning into data roles through online communities, code reviews, and one-on-one sessions.',
     icon: 'users',
     accent: 'emerald',
+    comingSoon: true,
+    video: '/images/activities/panahan.mp4',
   },
   {
-    id: '5',
-    title: 'Weekend Side Projects',
-    category: 'Building',
+    id: '4',
+    slug: 'story',
+    title: 'Experience From Nuclear to Oil n Gas Reliability',
+    category: 'Story',
     description:
-      'Exploring new tech stacks by building weekend projects — from real-time dashboards to personal automation pipelines.',
+      'Sabar Masih Mikir',
     icon: 'rocket',
-    accent: 'rose',
+    accent: 'cyan',
+    image: '/images/activities/pertamina.jpg',
   },
 ];
 

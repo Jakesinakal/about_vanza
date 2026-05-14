@@ -24,12 +24,22 @@ export interface MotivationCard {
   rotation: string;
 }
 
+export interface ActivitySection {
+  heading: string;
+  body: string;
+}
+
 export interface Activity {
   id: string;
+  slug: string;
   title: string;
   category: string;
   description: string;
   icon: 'code' | 'pencil' | 'trophy' | 'users' | 'rocket';
   accent: 'cyan' | 'violet' | 'amber' | 'emerald' | 'rose';
-  image?: string; // path relative to /public, e.g. '/images/activities/open-source.jpg'
+  image?: string;       // path relative to /public, e.g. '/images/activities/open-source.jpg'
+  video?: string;       // path relative to /public, e.g. '/images/activities/clip.mp4'
+  comingSoon?: boolean;
+  sections?: ActivitySection[];
+  quote?: string;
 }

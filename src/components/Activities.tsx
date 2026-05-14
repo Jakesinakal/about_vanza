@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import {
@@ -30,6 +31,7 @@ const DEG    = 360 / COUNT;
 const RADIUS = 280;
 
 export default function Activities() {
+  const router   = useRouter();
   const discRef  = useRef<HTMLDivElement>(null);
   const angleRef = useRef(0);
 
@@ -106,7 +108,13 @@ export default function Activities() {
               return (
                 <button
                   key={activity.id}
-                  onClick={() => goTo(i)}
+                  onClick={() => {
+                    if (i === activeIndex && !activity.comingSoon) {
+                      router.push(`/activities/${activity.slug}`);
+                    } else {
+                      goTo(i);
+                    }
+                  }}
                   style={{
                     position: 'absolute',
                     left: '-140px',
@@ -118,12 +126,45 @@ export default function Activities() {
                     cursor: i === activeIndex ? 'default' : 'pointer',
                   }}
                   aria-label={activity.title}
-                  onMouseEnter={() => { if (i === activeIndex) setHoveredIndex(i); }}
+                  onMouseEnter={() => { if (i === activeIndex && !activity.comingSoon) setHoveredIndex(i); }}
                   onMouseLeave={() => setHoveredIndex(null)}
                 >
                   <div className="relative w-full h-full rounded-2xl border border-slate-200 dark:border-slate-800 bg-surface dark:bg-midnight-soft overflow-hidden flex flex-col text-left">
 
-                    {activity.image ? (
+                    {activity.comingSoon ? (
+                      /* ── Coming Soon card ── */
+                      <>
+                        {activity.video ? (
+                          <video
+                            src={activity.video}
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                            className="absolute inset-0 w-full h-full object-cover opacity-50 grayscale"
+                          />
+                        ) : activity.image && (
+                          <div className="absolute inset-0 overflow-hidden rounded-2xl">
+                            <Image
+                              src={activity.image}
+                              alt={activity.title}
+                              fill
+                              className="object-cover opacity-40 grayscale"
+                              sizes="280px"
+                            />
+                          </div>
+                        )}
+                        <div className="relative z-10 flex flex-col items-center justify-center h-full gap-3 p-6">
+                          <motion.span
+                            className="text-sm font-semibold tracking-widest uppercase text-white border border-dashed border-white/50 rounded-full px-5 py-2"
+                            animate={{ opacity: [0.5, 1, 0.5], scale: [0.97, 1, 0.97] }}
+                            transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+                          >
+                            Coming Soon
+                          </motion.span>
+                        </div>
+                      </>
+                    ) : activity.image ? (
                       /* ── Photo card ── */
                       <>
                         {/* Image with subtle zoom on hover */}

@@ -20,7 +20,7 @@ export default async function ActivityPage({
     <main className="min-h-screen bg-cream dark:bg-midnight text-slate-800 dark:text-slate-100">
 
       {/* Hero */}
-      <div className="relative h-72 sm:h-[28rem] w-full overflow-hidden">
+      <div className="relative h-72 sm:h-[36rem] w-full overflow-hidden">
         {activity.video ? (
           <video
             src={activity.video}
@@ -31,11 +31,13 @@ export default async function ActivityPage({
             className="absolute inset-0 w-full h-full object-cover"
           />
         ) : activity.image ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={activity.image}
-            alt={activity.title}
-            className="absolute inset-0 w-full h-full object-cover"
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `url(${activity.image})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center 45%',
+            }}
           />
         ) : (
           <div className="absolute inset-0 bg-gradient-to-br from-slate-200 to-slate-300 dark:from-slate-800 dark:to-slate-900" />

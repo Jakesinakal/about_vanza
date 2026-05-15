@@ -128,15 +128,53 @@ export const ACTIVITIES: Activity[] = [
     title: 'My Robotic Thesis Journey',
     category: 'Story',
     description:
-      'Sabar Masih Mikir',
+      'How I went from a dead-end Lego robot to building an autonomous mapping machine from scratch — a thesis journey about persistence, mentorship, and 7.5 cm of accuracy.',
     icon: 'code',
     accent: 'cyan',
     image: '/images/activities/skripsi.jpg',
+    sections: [
+      {
+        heading: 'Finding a Real Problem',
+        body: 'I and my friend Azis were searching for a thesis topic when we both agreed we wanted to work on something that would solve real problems—ideally as part of an existing research project. Our search led us to meet Dr. Kristedjo Kurnianto, a researcher at BRIN Serpong. He shared a compelling problem: there was an abandoned building in the BRIN complex that was exposed to contamination. Before the building could be decontaminated, it needed to be mapped out. This sparked our idea: why not use an autonomous robot to map such a dangerous space?',
+      },
+      {
+        heading: 'Hope in a Lego Robot',
+        body: 'With our thesis topic finalized, we selected Dr. Agus Arif as our university advisor. So we had two mentors: Dr. Kristedjo from BRIN and Dr. Agus from campus. After our initial discussions about the research approach, they entrusted me and Azis with executing the project.\n\nDuring our visit to BRIN Serpong, we were lent a Lego Mindstorms NXT robot. Armed with basic programming knowledge, we continuously learned to develop the autonomous robot while experimenting with its capabilities. However, after spending almost two months on it, we reached a difficult conclusion: the Lego robot\'s system was too closed off and too old to be freely modified for our contamination mapping mission.',
+      },
+      {
+        heading: 'Arguing for a "Meaningful Failure"',
+        body: 'Recognizing this obstacle, we approached our campus advisor to ask permission to design a new robot from scratch to better suit our needs. Initially, our request was rejected. His reasoning: research doesn\'t always have to succeed; if we failed with the Lego robot, we could simply document that failure in our thesis.\n\nBut I disagreed. To me, forcing ourselves to use an inadequate Lego robot wouldn\'t just result in failure—the lessons learned would be hollow. I wanted our failure, if it came, to be genuinely mine, born from my own efforts, not from the inherent limitations of a tool unsuitable for mapping. Eventually, our advisor found a middle ground: we would consult with Dr. Dwi Joko, a professor who deeply understood robotics in our department. If he approved, our advisor would too. When we met with Dr. Dwi and explained our situation, he agreed with our plan to build the robot from scratch and even offered to guide me and Azis.',
+      },
+      {
+        heading: 'Reverse Engineering and Dividing Roles',
+        body: 'We started researching how to design a robot. But here was where the real challenge emerged: neither I nor Azis had any background in robotics. I had to think creatively about how someone without expertise could build a robot. The answer was reverse engineering.\n\nI found an open-source reference from someone who had documented how to build an autonomous mapping robot. I dissected how it worked and customized it to fit our needs. We then divided the tasks: I focused on completing the robot\'s design and technical aspects, while Azis developed the radiation detection system that would work alongside the mapping functionality.',
+      },
+      {
+        heading: 'Building from Scratch',
+        body: 'Even with tutorials and open-source references, redesigning the system to achieve our specific goals was far from simple. I had to ask more experienced robotics friends multiple times to verify design details. Eventually, I managed to complete my own version of the design.',
+        image: '/images/activities/skripsi-components.jpg',
+      },
+      {
+        heading: 'The Robot Comes Alive',
+        body: 'We began purchasing components and, with help from a friend, assembled the robot hardware fully. It took about three months before the robot could finally run. Of course, reality wasn\'t smooth sailing from day one—many adjustments were needed to match our expectations. But for me, these were minor obstacles compared to the much larger hurdles we\'d already overcome.',
+        image: '/images/activities/skripsi-robot.jpg',
+      },
+      {
+        heading: 'Testing in the Lobby',
+        body: 'Finally, our robot was ready for testing. We conducted data collection in the lobby of the Nuclear Engineering and Physics Department Building. We chose the lobby intentionally; when facing the actual contaminated building, mapping would naturally begin from the front area, typically a lobby.\n\nDuring this test, I focused on the accuracy of the robot\'s position relative to the map it generated. The results were remarkably encouraging: the robot successfully mapped the entire lobby. Moreover, its accuracy was excellent—with an average deviation of only 7.5 centimeters from the origin point.',
+        video: '/images/activities/skripsi-demo.mp4',
+      },
+      {
+        heading: 'Lessons Behind the Thesis',
+        body: 'Looking back on this thesis journey, I feel deeply satisfied. Although we got stuck early on with the aging Lego robot—or to be honest, perhaps because I hadn\'t yet mastered it—I\'m genuinely grateful we found a solution quickly rather than dragging things out in confusion.\n\nThis journey gave me a new perspective: no single discipline can stand alone to achieve great goals. Cross-disciplinary collaboration and teamwork are essential. We shouldn\'t dismiss other fields or assume our own field is superior. For me, this has been one of the most extraordinary experiences I\'ve had so far.',
+      },
+    ],
+    quote: 'This project taught me that innovation often comes not from having all the answers upfront, but from persistence, collaboration, and the willingness to ask for help when needed.',
   },
   {
     id: '2',
     slug: 'cikande',
-    title: 'One-Month Journey of Radiation Decontamination in Cikande',
+    title: 'Journey of Radiation Decontamination in Cikande',
     category: 'Story',
     description:
       'One month. Hazmat suits. A national radiation crisis. Here\'s what Cikande taught me about the professional world that no university ever could.',
@@ -169,6 +207,34 @@ export const ACTIVITIES: Activity[] = [
   },
   {
     id: '3',
+    slug: 'pertamina',
+    title: 'Experience From Nuclear to Oil n Gas Reliability',
+    category: 'Story',
+    description:
+      'Three months inside Pertamina RU VI Balongan\'s refinery — where nuclear control theory unexpectedly became the bridge into oil & gas reliability engineering.',
+    icon: 'rocket',
+    accent: 'cyan',
+    image: '/images/activities/pertamina.jpg',
+    imagePosition: 'center 32%',
+    imageScale: 0.93,
+    sections: [
+      {
+        heading: 'Finding Common Ground',
+        body: 'Arriving at Pertamina RU VI Balongan as a Nuclear Engineering student felt incredibly exciting, though I was also aware that my background was somewhat different. Initially, my mentor in the Reliability division seemed puzzled and felt my background didn\'t quite align with the division\'s focus. But after discussing and exploring further, we discovered our connection point: Control Engineering. It turned out that the systems control knowledge I learned on campus became the perfect bridge for understanding how reliability works in a refinery. From this moment of alignment, my learning journey truly began.',
+      },
+      {
+        heading: 'From Schematics to the Shop Floor',
+        body: 'My first month was largely spent in the office. I immersed myself in piles of documents, familiarized myself with various instruments, learned to read Piping and Instrumentation Diagrams (P&ID), and studied the logic of Distributed Control System (DCS) and PID controllers. Then came the day I was invited to step directly into the refinery. It was exhilarating to see the physical equipment that I had only viewed in schematic diagrams. The experience became even more complete when I visited the Central Control Room (CCR). There, I directly witnessed how engineers set up the processes and was shown the rows of servers that serve as the brain behind the refinery\'s control computers.',
+      },
+      {
+        heading: 'The Assignment That Made It Click',
+        body: 'As part of my assignment, I was given a challenging exercise: analyzing a cascade control loop system in one of the P&IDs. This system regulated eight pipes that needed to maintain equal flow rates. My main task was to write a report on how the control valve operates to achieve balanced flow across all eight pipes. Successfully completing this analysis gave me a unique sense of accomplishment.',
+      },
+    ],
+    quote: 'These three months of internship flew by, but they were incredibly memorable because I experienced so much that was new to me. My hope is that one day I\'ll have the opportunity to return, hopefully for a longer period so I can deepen my learning.',
+  },
+  {
+    id: '4',
     slug: 'soon',
     title: 'Mentoring Junior Devs',
     category: 'Coming Soon',
@@ -178,17 +244,6 @@ export const ACTIVITIES: Activity[] = [
     accent: 'emerald',
     comingSoon: true,
     video: '/images/activities/panahan.mp4',
-  },
-  {
-    id: '4',
-    slug: 'story',
-    title: 'Experience From Nuclear to Oil n Gas Reliability',
-    category: 'Story',
-    description:
-      'Sabar Masih Mikir',
-    icon: 'rocket',
-    accent: 'cyan',
-    image: '/images/activities/pertamina.jpg',
   },
 ];
 

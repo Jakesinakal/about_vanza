@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ACTIVITIES } from '@/lib/constants';
 import { IconArrowLeft, IconQuote } from '@tabler/icons-react';
 
@@ -32,12 +33,18 @@ export default async function ActivityPage({
           />
         ) : activity.image ? (
           <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `url(${activity.image})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center 45%',
-            }}
+            className="absolute"
+            style={(() => {
+              const scale = activity.imageScale ?? 1;
+              const inset = `${-((1 / scale - 1) / 2) * 100}%`;
+              return {
+                inset,
+                transform: scale !== 1 ? `scale(${scale})` : undefined,
+                backgroundImage: `url(${activity.image})`,
+                backgroundSize: 'cover',
+                backgroundPosition: activity.imagePosition ?? 'center 45%',
+              };
+            })()}
           />
         ) : (
           <div className="absolute inset-0 bg-gradient-to-br from-slate-200 to-slate-300 dark:from-slate-800 dark:to-slate-900" />
@@ -85,6 +92,21 @@ export default async function ActivityPage({
                     </p>
                   ))}
                 </div>
+                {section.image && (
+                  <div className="relative mt-6 rounded-xl overflow-hidden aspect-video">
+                    <Image src={section.image} alt="" fill className="object-cover" />
+                  </div>
+                )}
+                {section.video && (
+                  <div className="mt-6 rounded-xl overflow-hidden">
+                    <video
+                      src={section.video}
+                      controls
+                      playsInline
+                      className="w-full rounded-xl"
+                    />
+                  </div>
+                )}
               </div>
             ))}
           </div>

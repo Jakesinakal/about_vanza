@@ -178,6 +178,7 @@ export default function Activities() {
                             style={{
                               transform: hoveredIndex === i ? 'scale(1.07)' : 'scale(1)',
                               transition: 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)',
+                              objectPosition: activity.imagePosition ?? 'center center',
                             }}
                           />
                         </div>

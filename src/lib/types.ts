@@ -27,6 +27,8 @@ export interface MotivationCard {
 export interface ActivitySection {
   heading: string;
   body: string;
+  image?: string;
+  video?: string;
 }
 
 export interface Activity {
@@ -38,6 +40,8 @@ export interface Activity {
   icon: 'code' | 'pencil' | 'trophy' | 'users' | 'rocket';
   accent: 'cyan' | 'violet' | 'amber' | 'emerald' | 'rose';
   image?: string;       // path relative to /public, e.g. '/images/activities/open-source.jpg'
+  imagePosition?: string; // CSS backgroundPosition / objectPosition, e.g. 'center 20%'
+  imageScale?: number;    // zoom-out factor for detail page hero (e.g. 0.93 = 7% out); default 1
   video?: string;       // path relative to /public, e.g. '/images/activities/clip.mp4'
   comingSoon?: boolean;
   sections?: ActivitySection[];

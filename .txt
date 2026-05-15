@@ -1,38 +1,41 @@
-Story of cikande
+## Part 1: Finding a Real Problem
 
-1. The Late Call That Changed Everything
-As a fresh graduate searching for my first foothold in the professional world, I was met with shocking news: the discovery of radiation-exposed shrimp. This wasn't just a regular environmental issue; it was a disaster on a national scale.
+I and my friend Azis were searching for a thesis topic when we both agreed we wanted to work on something that would solve real problems—ideally as part of an existing research project. Our search led us to meet Dr. Kristedjo Kurnianto, a researcher at BRIN Serpong. He shared a compelling problem: there was an abandoned building in the BRIN complex that was exposed to contamination. Before the building could be decontaminated, it needed to be mapped out. This sparked our idea: why not use an autonomous robot to map such a dangerous space?
 
-Initially, I was just a spectator. However, fate had other plans. In the second month of the decontamination project, I received an unexpected invitation to join the team. Despite being late to the game, I didn't think twice. I stepped into Cikande, heading into a project that would forever change my perspective on the working world.
+## Part 2: Hope in a Lego Robot
 
-2. Field Reality: Hazmat Suits, Blistering Sun, and Campus Theories
-My first day on site felt like entering another dimension. If anyone asks how much of my college knowledge was applicable here, to be honest, it was probably only about 10-20%. However, the problem-solving mindset forged during my university years became my absolute greatest weapon.
+With our thesis topic finalized, we selected Dr. Agus Arif as our university advisor. So we had two mentors: Dr. Kristedjo from BRIN and Dr. Agus from campus. After our initial discussions about the research approach, they entrusted me and Azis with executing the project.
 
-The first three days were a massive culture shock and a grueling physical test. It was my first time wearing a full hazmat suit under the scorching Cikande sun. It was incredibly sweltering, sweat poured endlessly, and dehydration became the ultimate enemy.
+During our visit to BRIN Serpong, we were lent a Lego Mindstorms NXT robot. Armed with basic programming knowledge, we continuously learned to develop the autonomous robot while experimenting with its capabilities. However, after spending almost two months on it, we reached a difficult conclusion: the Lego robot's system was too closed off and too old to be freely modified for our contamination mapping mission.
 
-During this adaptation phase, I chose to observe. I paid close attention to the seniors' workflows, mentally noting every detail so I could quickly catch up to their rhythm and become a reliable part of a solid team.
+## Part 3: Arguing for a "Meaningful Failure"
 
-3. The Rhythm of Decontamination: From Pebbles to Midnight Mapping
-Once I found my rhythm, my confidence grew. I started to speak up and share my ideas. Our daily tasks were highly specific and required immense precision:
+Recognizing this obstacle, we approached our campus advisor to ask permission to design a new robot from scratch to better suit our needs. Initially, our request was rejected. His reasoning: research doesn't always have to succeed; if we failed with the Lego robot, we could simply document that failure in our thesis.
 
-Retrieving Hazardous Projectiles: We cleared radiation-exposed soil, rocks, and trash. The majority of the waste consisted of pebbles and stones mixed with dirt.
+But I disagreed. To me, forcing ourselves to use an inadequate Lego robot wouldn't just result in failure—the lessons learned would be hollow. I wanted our failure, if it came, to be genuinely mine, born from my own efforts, not from the inherent limitations of a tool unsuitable for mapping. Eventually, our advisor found a middle ground: we would consult with Dr. Dwi Joko, a professor who deeply understood robotics in our department. If he approved, our advisor would too. When we met with Dr. Dwi and explained our situation, he agreed with our plan to build the robot from scratch and even offered to guide me and Azis.
 
-Strict Protocols: The collected waste had to be precisely labeled and safely transported to a specialized storage facility.
+## Part 4: Reverse Engineering and Dividing Roles
 
-Relentless Record-Keeping: Documentation was our lifeline. The movement of the waste was strictly monitored every single day without exception.
+We started researching how to design a robot. But here was where the real challenge emerged: neither I nor Azis had any background in robotics. I had to think creatively about how someone without expertise could build a robot. The answer was reverse engineering.
 
-Strategizing for Tomorrow: At the end of an exhausting day, we still sat down together for daily mapping, strategizing which areas needed to be decontaminated the next day.
+I found an open-source reference from someone who had documented how to build an autonomous mapping robot. I dissected how it worked and customized it to fit our needs. We then divided the tasks: I focused on completing the robot's design and technical aspects, while Azis developed the radiation detection system that would work alongside the mapping functionality.
 
-The most intense moment occurred a week before the deadline set by the Ministry of Environment and Forestry (KLHK). We had to work at maximum speed, often pulling overtime until midnight. Under this immense time pressure, we truly learned what it meant to work efficiently.
+## Part 5: Building from Scratch
 
-4. Lessons Behind a National Disaster
-The professional world turned out to be vastly different from university life. Yet, there is one crucial common thread between the two: Communication.
+Even with tutorials and open-source references, redesigning the system to achieve our specific goals was far from simple. I had to ask more experienced robotics friends multiple times to verify design details. Eventually, I managed to complete my own version of the design.
 
-In this project, I learned to set my ego aside. Collaborating in the field demands extra patience and mutual understanding. What made this experience so invaluable was the opportunity to interact with various key stakeholders—from the affected local residents and experts from KBRN (Chemical, Biological, Radiological, and Nuclear defense) and NUBIKA, to representatives from KLHK.
+We began purchasing components and, with help from a friend, assembled the robot hardware fully. It took about three months before the robot could finally run. Of course, reality wasn't smooth sailing from day one—many adjustments were needed to match our expectations. But for me, these were minor obstacles compared to the much larger hurdles we'd already overcome.
 
-There was a profound sense of pride in playing a role in resolving this national crisis alongside them.
+## Part 6: Testing in the Lobby
 
-5. Epilogue: A New Perspective
-One month flew by. As I took off my hazmat suit for the last time, the view of every site in front of me was vastly different from when we first started. They were no longer "dangerous" zones, but lands that were now safe enough for the local community to use once again.
+Finally, our robot was ready for testing. We conducted data collection in the lobby of the Nuclear Engineering and Physics Department Building. We chose the lobby intentionally; when facing the actual contaminated building, mapping would naturally begin from the front area, typically a lobby.
 
-"Cikande gave me much more than just my first work experience. It gave me a brand-new perspective on the professional world that I had never even imagined before. Leaving this project, I know one thing for sure: I am more than ready to face whatever challenges my next career journey holds."
+During this test, I focused on the accuracy of the robot's position relative to the map it generated. The results were remarkably encouraging: the robot successfully mapped the entire lobby. Moreover, its accuracy was excellent—with an average deviation of only 7.5 centimeters from the origin point.
+
+## Part 7: Lessons Behind the Thesis
+
+Looking back on this thesis journey, I feel deeply satisfied. Although we got stuck early on with the aging Lego robot—or to be honest, perhaps because I hadn't yet mastered it—I'm genuinely grateful we found a solution quickly rather than dragging things out in confusion.
+
+This journey gave me a new perspective: no single discipline can stand alone to achieve great goals. Cross-disciplinary collaboration and teamwork are essential. We shouldn't dismiss other fields or assume our own field is superior. For me, this has been one of the most extraordinary experiences I've had so far.
+
+This project taught me that innovation often comes not from having all the answers upfront, but from persistence, collaboration, and the willingness to ask for help when needed.

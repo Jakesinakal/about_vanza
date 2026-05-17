@@ -1,5 +1,6 @@
 export interface Project {
   id: string;
+  slug: string;
   title: string;
   description: string;
   tags: string[];
@@ -7,6 +8,9 @@ export interface Project {
   demo?: string;
   metric?: string;
   color: string;
+  image?: string;
+  weatherOverlay?: boolean;
+  story?: ActivitySection[];
 }
 
 export interface TimelineMilestone {

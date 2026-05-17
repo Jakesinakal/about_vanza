@@ -62,6 +62,7 @@ export const JOURNEY: TimelineMilestone[] = [
 export const PROJECTS: Project[] = [
   {
     id: '1',
+    slug: 'pet-weather-app',
     title: 'Real-Time Data Pipeline Platform',
     description:
       'End-to-end streaming platform processing millions of events per day using Kafka, Spark Streaming, and BigQuery. Reduced data latency from hours to seconds.',
@@ -69,9 +70,18 @@ export const PROJECTS: Project[] = [
     github: 'https://github.com/your-username/data-pipeline',
     metric: '10M+ events/day',
     color: 'bg-cyan-500/10',
+    image: '/images/project/pet_mockup.jpg',
+    weatherOverlay: true,
+    story: [
+      {
+        heading: 'The Problem',
+        body: 'Tulis cerita di balik project ini di sini.',
+      },
+    ],
   },
   {
     id: '2',
+    slug: 'analytics-dashboard',
     title: 'Analytics Dashboard',
     description:
       'Full-stack analytics platform with a React frontend and FastAPI backend. Custom data visualization components with real-time WebSocket updates.',
@@ -80,9 +90,16 @@ export const PROJECTS: Project[] = [
     demo: 'https://demo.example.com',
     metric: '50% faster insights',
     color: 'bg-violet-500/10',
+    story: [
+      {
+        heading: 'The Problem',
+        body: 'Tulis cerita di balik project ini di sini.',
+      },
+    ],
   },
   {
     id: '3',
+    slug: 'dbt-framework',
     title: 'dbt Transformation Framework',
     description:
       'Enterprise-scale dbt project with 200+ models, custom macros, and automated data quality testing. Standardized modeling practices across multiple engineering teams.',
@@ -90,9 +107,16 @@ export const PROJECTS: Project[] = [
     github: 'https://github.com/your-username/dbt-framework',
     metric: '200+ models',
     color: 'bg-emerald-500/10',
+    story: [
+      {
+        heading: 'The Problem',
+        body: 'Tulis cerita di balik project ini di sini.',
+      },
+    ],
   },
   {
     id: '4',
+    slug: 'api-gateway',
     title: 'API Gateway & Auth Service',
     description:
       'Microservices API gateway with JWT authentication, rate limiting, and request routing. Built with Node.js, deployed on Kubernetes with auto-scaling.',
@@ -100,6 +124,12 @@ export const PROJECTS: Project[] = [
     github: 'https://github.com/your-username/api-gateway',
     metric: '99.9% uptime',
     color: 'bg-orange-500/10',
+    story: [
+      {
+        heading: 'The Problem',
+        body: 'Tulis cerita di balik project ini di sini.',
+      },
+    ],
   },
 ];
 

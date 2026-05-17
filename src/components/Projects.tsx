@@ -1,10 +1,15 @@
 'use client';
 
+import { useState } from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { IconBrandGithub, IconExternalLink, IconArrowUpRight } from '@tabler/icons-react';
 import { PROJECTS } from '@/lib/constants';
+import WeatherOverlay from '@/components/WeatherOverlay';
 
 export default function Projects() {
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
+
   return (
     <section id="projects" className="py-32 border-t border-slate-100 dark:border-slate-900">
       <div className="max-w-6xl mx-auto px-6 lg:px-16">
@@ -34,14 +39,29 @@ export default function Projects() {
               viewport={{ once: true, margin: '-60px' }}
               transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1], delay: index * 0.08 }}
               className="group relative flex flex-col bg-surface dark:bg-midnight-soft border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden hover:border-slate-300 dark:hover:border-slate-700 transition-colors duration-300"
+              onMouseEnter={() => setHoveredId(project.id)}
+              onMouseLeave={() => setHoveredId(null)}
             >
               {/* Color band / image area */}
               <div
-                className={`${project.color} h-36 flex items-center justify-center border-b border-slate-200 dark:border-slate-800`}
+                className={`${project.color} h-48 relative flex items-center justify-center border-b border-slate-200 dark:border-slate-800 overflow-hidden`}
               >
-                <span className="text-4xl font-black text-slate-200 dark:text-slate-700 select-none tracking-tighter">
-                  {project.id.padStart(2, '0')}
-                </span>
+                {project.image ? (
+                  <>
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.06]"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                    {project.weatherOverlay && <WeatherOverlay active={hoveredId === project.id} />}
+                  </>
+                ) : (
+                  <span className="text-4xl font-black text-slate-200 dark:text-slate-700 select-none tracking-tighter">
+                    {project.id.padStart(2, '0')}
+                  </span>
+                )}
               </div>
 
               {/* Content */}

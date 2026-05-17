@@ -29,3 +29,40 @@ html {
 .dark ::-webkit-scrollbar-thumb {
   background: #44474c;
 }
+
+@keyframes weather-snowfall {
+  0%   { transform: translateY(0) translateX(0); opacity: 1; }
+  80%  { opacity: 0.6; }
+  100% { transform: translateY(280px) translateX(12px); opacity: 0; }
+}
+
+@keyframes weather-rainfall {
+  0%   { opacity: 0.8; transform: rotate(14deg) translateY(0); }
+  100% { opacity: 0; transform: rotate(14deg) translateY(290px); }
+}
+
+@keyframes weather-spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.weather-snowfall {
+  animation: weather-snowfall linear infinite;
+  animation-play-state: paused;
+}
+
+.weather-rainfall {
+  animation: weather-rainfall linear infinite;
+  animation-play-state: paused;
+}
+
+.weather-spin-slow {
+  animation: weather-spin-slow 10s linear infinite;
+  animation-play-state: paused;
+}
+
+.group:hover .weather-snowfall,
+.group:hover .weather-rainfall,
+.group:hover .weather-spin-slow {
+  animation-play-state: running;
+}

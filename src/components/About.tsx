@@ -5,9 +5,9 @@ import { Star } from './ui/SketchElements';
 import { PERSONAL_INFO } from '@/lib/constants';
 
 const GOALS = [
-  { label: 'Distributed Systems at Scale', description: 'Building robust, high-performance data infrastructure that handles complex workloads and serves millions of data points efficiently.' },
-  { label: 'AI-Powered Data Products', description: 'Creating intelligent data products that leverage machine learning to provide actionable insights and drive better business decisions.' },
-  { label: 'Open Source Contributions', description: 'Contributing meaningfully to open-source data engineering and web frameworks, empowering the community with tools that solve real problems.' },
+  { label: 'Industry-Ready Skills', description: 'Closing the gap between self-taught and production-grade — building real projects that reflect how data systems actually work in professional environments.' },
+  { label: 'Depth Over Breadth', description: 'Going beyond surface-level familiarity with tools. Understanding pipelines, ETL workflows, and data infrastructure well enough to own them end to end.' },
+  { label: 'Prove It Through Projects', description: 'Every project is a step toward demonstrating competence, not just claiming it. Shipping real work is the only benchmark that matters.' },
 ];
 
 export default function About() {

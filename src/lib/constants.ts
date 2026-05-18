@@ -10,9 +10,9 @@ export const PERSONAL_INFO = {
   github: 'https://github.com/Jakesinakal',
   resume: '/resume.pdf',
   bio: [
-    'I started as a nuclear engineer, building rigorous foundations in complex systems and mathematics. That foundation led me to discover my true passion: building data systems and software products that solve real problems at scale.',
-    'Today I specialize in designing scalable data pipelines, architecting ETL/ELT workflows, and building full-stack applications that make data actionable. I care deeply about performance, reliability, and code that future engineers will actually enjoy reading.',
-    'When I\'m not engineering pipelines or debugging APIs, you\'ll find me exploring system design challenges, tinkering with side projects, or thinking about how data and product can work better together.',
+    'I started as a nuclear engineer, but it was my thesis that quietly changed everything. The project required me to write code, and somewhere in that process I discovered I actually enjoyed it. That curiosity led me down a rabbit hole into data, and I never really came back out.',
+    'The transition hasn\'t been linear. I spent too long trying to master theory before touching anything real, until I realized the only way to actually learn was to build. So I started building — projects that failed, projects that almost finished, and eventually, projects that shipped.',
+    'Right now I\'m focused on one thing: getting my skills to industry level. Not just knowing the tools, but understanding how production data systems actually work — and building enough real things to prove it.',
   ],
 } as const;
 

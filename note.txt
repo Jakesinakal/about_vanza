@@ -1,4 +1,0 @@
-activiti 1 = Magang pertamina
-activiti 2 = Skripsi Robot
-activiti 3 = cikande
-activity 4 = belum

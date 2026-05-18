@@ -63,74 +63,95 @@ export const PROJECTS: Project[] = [
   {
     id: '1',
     slug: 'pet-weather-app',
-    title: 'Real-Time Data Pipeline Platform',
+    title: 'Pet Weather App',
     description:
-      'End-to-end streaming platform processing millions of events per day using Kafka, Spark Streaming, and BigQuery. Reduced data latency from hours to seconds.',
-    tags: ['Python', 'Apache Kafka', 'Spark', 'BigQuery', 'Airflow'],
-    github: 'https://github.com/your-username/data-pipeline',
-    metric: '10M+ events/day',
+      'Personalized weather insights for pet owners — and the first project I actually shipped. The confidence boost that unlocked every project after it.',
+    tags: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Open-Meteo API'],
+    github: 'https://github.com/Jakesinakal/pet-weather-app',
+    demo: 'https://pet-weather-app-two.vercel.app',
+    metric: 'My First Project',
     color: 'bg-cyan-500/10',
     image: '/images/project/pet_mockup.jpg',
     weatherOverlay: true,
     story: [
       {
-        heading: 'The Problem',
-        body: 'Tulis cerita di balik project ini di sini.',
+        heading: 'The Perfectionism Trap',
+        body: 'When I decided to switch careers into data engineering, my instinct was to be thorough — learn everything first, master the theory, then build. So I spent weeks absorbing documentation, articles, and courses. The progress felt real on paper, but in practice, something was off. The more I studied, the less I understood. Without seeing how things actually worked in a real project, the theory stayed abstract and disconnected.\n\nIt took longer than I\'d like to admit to recognize what was happening: perfectionism was holding me back. I was waiting to be "ready" before I started — but readiness never came. So I made a decision: force myself to build now, and learn as I go.',
       },
-    ],
-  },
-  {
-    id: '2',
-    slug: 'analytics-dashboard',
-    title: 'Analytics Dashboard',
-    description:
-      'Full-stack analytics platform with a React frontend and FastAPI backend. Custom data visualization components with real-time WebSocket updates.',
-    tags: ['React', 'TypeScript', 'FastAPI', 'PostgreSQL', 'WebSockets'],
-    github: 'https://github.com/your-username/analytics-dashboard',
-    demo: 'https://demo.example.com',
-    metric: '50% faster insights',
-    color: 'bg-violet-500/10',
-    story: [
       {
-        heading: 'The Problem',
-        body: 'Tulis cerita di balik project ini di sini.',
+        heading: 'Three Starts, Zero Finishes',
+        body: 'The first attempt didn\'t go well. Neither did the second, or the third. Three projects started, none of them completed.\n\nLooking back at those failures, a pattern was clear. Each project was too ambitious for where I was at the time — I had chosen complex ideas before I had the foundational skills to execute them. The conclusion was simple: start smaller. Build something that could actually be finished.',
       },
-    ],
-  },
-  {
-    id: '3',
-    slug: 'dbt-framework',
-    title: 'dbt Transformation Framework',
-    description:
-      'Enterprise-scale dbt project with 200+ models, custom macros, and automated data quality testing. Standardized modeling practices across multiple engineering teams.',
-    tags: ['dbt', 'SQL', 'BigQuery', 'Python', 'CI/CD'],
-    github: 'https://github.com/your-username/dbt-framework',
-    metric: '200+ models',
-    color: 'bg-emerald-500/10',
-    story: [
       {
-        heading: 'The Problem',
-        body: 'Tulis cerita di balik project ini di sini.',
+        heading: 'Why a Weather App for Dogs',
+        body: 'Choosing the right starting point mattered more than I expected. My main constraint: use a free, easy-to-access API with no authentication friction. Open-Meteo fit perfectly — completely free, no API key, well-documented.\n\nThe pet weather angle came from wanting a narrowly defined problem scope. A weather app for dog owners is specific enough to have clear features (walk verdict, live temperature, safety advice) but contained enough that the scope wouldn\'t balloon out of control. This wasn\'t about solving a burning market problem — it was about finding a container small enough to actually finish.',
       },
-    ],
-  },
-  {
-    id: '4',
-    slug: 'api-gateway',
-    title: 'API Gateway & Auth Service',
-    description:
-      'Microservices API gateway with JWT authentication, rate limiting, and request routing. Built with Node.js, deployed on Kubernetes with auto-scaling.',
-    tags: ['Node.js', 'Docker', 'Kubernetes', 'PostgreSQL', 'Redis'],
-    github: 'https://github.com/your-username/api-gateway',
-    metric: '99.9% uptime',
-    color: 'bg-orange-500/10',
-    story: [
       {
-        heading: 'The Problem',
-        body: 'Tulis cerita di balik project ini di sini.',
+        heading: 'Building It',
+        body: 'Building while learning React and TypeScript simultaneously meant constantly hitting walls I didn\'t know existed. The weather pipeline involved two separate systems — one for real API responses, another for the fallback/mock layer — and keeping them clean took more care than expected.\n\nThe animated dog illustration I drew from scratch in SVG, which turned out to be one of the more satisfying parts. Handling geolocation gracefully was another small challenge: fall back to Jakarta if the browser blocked access, show an error state if a city search returned nothing, then auto-reset after a few seconds. Each edge case was a lesson in defensive UI.',
+      },
+      {
+        heading: 'What It Does',
+        body: 'The app takes your current location — or any city you search — fetches live weather from Open-Meteo, and gives a simple verdict: Good to go, Too hot to walk, Bundle up first, or Maybe wait a bit. The dog illustration reacts to each scenario with a different mood. Temperature, humidity, and UV index appear as quick-read pills below the verdict.\n\nFour visual weather themes switch the background and color palette dynamically. It\'s a small app — but it works, end to end, in real time.',
+      },
+      {
+        heading: 'Lessons from a Pet-Sized Problem',
+        body: 'Finishing this project felt disproportionately good. Not because the app was complex, but because after three unfinished attempts, completing anything at all was significant.\n\nThe real lesson wasn\'t about code. Perfectionism, it turns out, is just a hidden form of avoidance. Waiting to be fully prepared before starting just means never starting. Progress only became visible once I accepted that failure was part of the path — not a detour from it.\n\nThis project gave me the confidence to take on harder problems. Not because I became more skilled overnight, but because I finally had proof that I could ship something. And that proof matters far more than any amount of theory.',
       },
     ],
   },
+  // {
+  //   id: '2',
+  //   slug: 'analytics-dashboard',
+  //   title: 'Analytics Dashboard',
+  //   description:
+  //     'Full-stack analytics platform with a React frontend and FastAPI backend. Custom data visualization components with real-time WebSocket updates.',
+  //   tags: ['React', 'TypeScript', 'FastAPI', 'PostgreSQL', 'WebSockets'],
+  //   github: 'https://github.com/your-username/analytics-dashboard',
+  //   demo: 'https://demo.example.com',
+  //   metric: '50% faster insights',
+  //   color: 'bg-violet-500/10',
+  //   story: [
+  //     {
+  //       heading: 'The Problem',
+  //       body: 'Tulis cerita di balik project ini di sini.',
+  //     },
+  //   ],
+  // },
+  // {
+  //   id: '3',
+  //   slug: 'dbt-framework',
+  //   title: 'dbt Transformation Framework',
+  //   description:
+  //     'Enterprise-scale dbt project with 200+ models, custom macros, and automated data quality testing. Standardized modeling practices across multiple engineering teams.',
+  //   tags: ['dbt', 'SQL', 'BigQuery', 'Python', 'CI/CD'],
+  //   github: 'https://github.com/your-username/dbt-framework',
+  //   metric: '200+ models',
+  //   color: 'bg-emerald-500/10',
+  //   story: [
+  //     {
+  //       heading: 'The Problem',
+  //       body: 'Tulis cerita di balik project ini di sini.',
+  //     },
+  //   ],
+  // },
+  // {
+  //   id: '4',
+  //   slug: 'api-gateway',
+  //   title: 'API Gateway & Auth Service',
+  //   description:
+  //     'Microservices API gateway with JWT authentication, rate limiting, and request routing. Built with Node.js, deployed on Kubernetes with auto-scaling.',
+  //   tags: ['Node.js', 'Docker', 'Kubernetes', 'PostgreSQL', 'Redis'],
+  //   github: 'https://github.com/your-username/api-gateway',
+  //   metric: '99.9% uptime',
+  //   color: 'bg-orange-500/10',
+  //   story: [
+  //     {
+  //       heading: 'The Problem',
+  //       body: 'Tulis cerita di balik project ini di sini.',
+  //     },
+  //   ],
+  //},
 ];
 
 

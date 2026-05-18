@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import Link from 'next/link';
 import { IconBrandGithub, IconExternalLink, IconArrowUpRight } from '@tabler/icons-react';
 import { PROJECTS } from '@/lib/constants';
 import WeatherOverlay from '@/components/WeatherOverlay';
@@ -42,6 +43,11 @@ export default function Projects() {
               onMouseEnter={() => setHoveredId(project.id)}
               onMouseLeave={() => setHoveredId(null)}
             >
+              <Link
+                href={`/projects/${project.slug}`}
+                aria-label={`View ${project.title}`}
+                className="absolute inset-0 z-10"
+              />
               {/* Color band / image area */}
               <div
                 className={`${project.color} h-48 relative flex items-center justify-center border-b border-slate-200 dark:border-slate-800 overflow-hidden`}
@@ -94,7 +100,7 @@ export default function Projects() {
                 </div>
 
                 {/* Links */}
-                <div className="flex items-center gap-4 pt-1 border-t border-slate-100 dark:border-slate-800">
+                <div className="relative z-20 flex items-center gap-4 pt-1 border-t border-slate-100 dark:border-slate-800">
                   {project.github && (
                     <a
                       href={project.github}
@@ -111,10 +117,10 @@ export default function Projects() {
                       href={project.demo}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-1.5 text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-cyan-500 transition-colors duration-200"
+                      className="flex items-center gap-1.5 text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-cyan-500 transition-colors duration-200 border border-slate-200 dark:border-slate-700 hover:border-cyan-500/50 rounded-md px-2.5 py-1"
                     >
                       <IconExternalLink size={15} stroke={2} />
-                      Live Demo
+                      Live Project
                     </a>
                   )}
                   <div className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity duration-200">

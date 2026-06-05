@@ -57,7 +57,7 @@ export default function Contact() {
             </h2>
             <p className="text-base leading-[1.8] text-slate-500 dark:text-slate-400 mb-12">
               Open to interesting roles, collaborations, and conversations. Whether it&apos;s a
-              data infrastructure challenge or a product you&apos;re building — I&apos;d love to
+              data infrastructure challenge or a product you&apos;re building, I&apos;d love to
               hear about it.
             </p>
           </motion.div>

@@ -5,7 +5,7 @@ import { Star } from './ui/SketchElements';
 import { PERSONAL_INFO } from '@/lib/constants';
 
 const GOALS = [
-  { label: 'Industry-Ready Skills', description: 'Closing the gap between self-taught and production-grade — building real projects that reflect how data systems actually work in professional environments.' },
+  { label: 'Industry-Ready Skills', description: 'Closing the gap between self-taught and production-grade by building real projects that reflect how data systems actually work in professional environments.' },
   { label: 'Depth Over Breadth', description: 'Going beyond surface-level familiarity with tools. Understanding pipelines, ETL workflows, and data infrastructure well enough to own them end to end.' },
   { label: 'Prove It Through Projects', description: 'Every project is a step toward demonstrating competence, not just claiming it. Shipping real work is the only benchmark that matters.' },
 ];

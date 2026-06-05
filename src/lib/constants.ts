@@ -11,8 +11,8 @@ export const PERSONAL_INFO = {
   resume: '/resume.pdf',
   bio: [
     'I started as a nuclear engineer, but it was my thesis that quietly changed everything. The project required me to write code, and somewhere in that process I discovered I actually enjoyed it. That curiosity led me down a rabbit hole into data, and I never really came back out.',
-    'The transition hasn\'t been linear. I spent too long trying to master theory before touching anything real, until I realized the only way to actually learn was to build. So I started building — projects that failed, projects that almost finished, and eventually, projects that shipped.',
-    'Right now I\'m focused on one thing: getting my skills to industry level. Not just knowing the tools, but understanding how production data systems actually work — and building enough real things to prove it.',
+    'The transition hasn\'t been linear. I spent too long trying to master theory before touching anything real, until I realized the only way to actually learn was to build. So I started building. Projects that failed, projects that almost finished, and eventually, projects that shipped.',
+    'Right now I\'m focused on one thing: getting my skills to industry level. Not just knowing the tools, but understanding how production data systems actually work, and building enough real things to prove it.',
   ],
 } as const;
 
@@ -38,7 +38,7 @@ export const JOURNEY: TimelineMilestone[] = [
     period: '2022 – 2023',
     title: 'Full-Stack Development',
     description:
-      'Expanded into web development — backend APIs with FastAPI and Node.js, frontend with React. Started building end-to-end products, from database schema to deployed UI.',
+      'Expanded into web development, covering backend APIs with FastAPI and Node.js and frontend work in React. Started building end-to-end products, from database schema to deployed UI.',
     icon: 'code',
   },
   {
@@ -46,7 +46,7 @@ export const JOURNEY: TimelineMilestone[] = [
     period: '2023 – 2024',
     title: 'Systems & Architecture',
     description:
-      'Leveled up to distributed systems design, performance optimization at scale, and technical leadership. Focused on building systems that don\'t just work — but scale gracefully.',
+      'Leveled up to distributed systems design, performance optimization at scale, and technical leadership. Focused on building systems that don\'t just work, but scale gracefully.',
     icon: 'server',
   },
   {
@@ -65,7 +65,7 @@ export const PROJECTS: Project[] = [
     slug: 'pet-weather-app',
     title: 'Pet Weather App',
     description:
-      'Personalized weather insights for pet owners — and the first project I actually shipped. The confidence boost that unlocked every project after it.',
+      'Personalized weather insights for pet owners, and the first project I actually shipped. The confidence boost that unlocked every project after it.',
     tags: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Open-Meteo API'],
     github: 'https://github.com/Jakesinakal/pet-weather-app',
     demo: 'https://pet-weather-app-two.vercel.app',
@@ -76,32 +76,43 @@ export const PROJECTS: Project[] = [
     story: [
       {
         heading: 'The Perfectionism Trap',
-        body: 'When I decided to switch careers into data engineering, my instinct was to be thorough — learn everything first, master the theory, then build. So I spent weeks absorbing documentation, articles, and courses. The progress felt real on paper, but in practice, something was off. The more I studied, the less I understood. Without seeing how things actually worked in a real project, the theory stayed abstract and disconnected.\n\nIt took longer than I\'d like to admit to recognize what was happening: perfectionism was holding me back. I was waiting to be "ready" before I started — but readiness never came. So I made a decision: force myself to build now, and learn as I go.',
+        body: 'When I decided to switch careers into data engineering, my instinct was to be thorough. Learn everything first, master the theory, then build. So I spent weeks absorbing documentation, articles, and courses. The progress felt real on paper, but in practice, something was off. The more I studied, the less I understood. Without seeing how things actually worked in a real project, the theory stayed abstract and disconnected.\n\nIt took longer than I\'d like to admit to recognize what was happening: perfectionism was holding me back. I was waiting to be "ready" before I started, but readiness never came. So I made a decision: force myself to build now, and learn as I go.',
       },
       {
         heading: 'Three Starts, Zero Finishes',
-        body: 'The first attempt didn\'t go well. Neither did the second, or the third. Three projects started, none of them completed.\n\nLooking back at those failures, a pattern was clear. Each project was too ambitious for where I was at the time — I had chosen complex ideas before I had the foundational skills to execute them. The conclusion was simple: start smaller. Build something that could actually be finished.',
+        body: 'The first attempt didn\'t go well. Neither did the second, or the third. Three projects started, none of them completed.\n\nLooking back at those failures, a pattern was clear. Each project was too ambitious for where I was at the time. I had chosen complex ideas before I had the foundational skills to execute them. The conclusion was simple: start smaller. Build something that could actually be finished.',
       },
       {
         heading: 'Why a Weather App for Dogs',
-        body: 'Choosing the right starting point mattered more than I expected. My main constraint: use a free, easy-to-access API with no authentication friction. Open-Meteo fit perfectly — completely free, no API key, well-documented.\n\nThe pet weather angle came from wanting a narrowly defined problem scope. A weather app for dog owners is specific enough to have clear features (walk verdict, live temperature, safety advice) but contained enough that the scope wouldn\'t balloon out of control. This wasn\'t about solving a burning market problem — it was about finding a container small enough to actually finish.',
+        body: 'Choosing the right starting point mattered more than I expected. My main constraint: use a free, easy-to-access API with no authentication friction. Open-Meteo fit perfectly. It was completely free, needed no API key, and was well-documented.\n\nThe pet weather angle came from wanting a narrowly defined problem scope. A weather app for dog owners is specific enough to have clear features (walk verdict, live temperature, safety advice) but contained enough that the scope wouldn\'t balloon out of control. This wasn\'t about solving a burning market problem. It was about finding a container small enough to actually finish.',
       },
       {
         heading: 'Building It',
-        body: 'Building while learning React and TypeScript simultaneously meant constantly hitting walls I didn\'t know existed. The weather pipeline involved two separate systems — one for real API responses, another for the fallback/mock layer — and keeping them clean took more care than expected.\n\nThe animated dog illustration I drew from scratch in SVG, which turned out to be one of the more satisfying parts. Handling geolocation gracefully was another small challenge: fall back to Jakarta if the browser blocked access, show an error state if a city search returned nothing, then auto-reset after a few seconds. Each edge case was a lesson in defensive UI.',
+        body: 'Building while learning React and TypeScript simultaneously meant constantly hitting walls I didn\'t know existed. The weather pipeline involved two separate systems (one for real API responses, another for the fallback/mock layer), and keeping them clean took more care than expected.\n\nThe animated dog illustration I drew from scratch in SVG, which turned out to be one of the more satisfying parts. Handling geolocation gracefully was another small challenge: fall back to Jakarta if the browser blocked access, show an error state if a city search returned nothing, then auto-reset after a few seconds. Each edge case was a lesson in defensive UI.',
       },
       {
         heading: 'What It Does',
-        body: 'The app takes your current location — or any city you search — fetches live weather from Open-Meteo, and gives a simple verdict: Good to go, Too hot to walk, Bundle up first, or Maybe wait a bit. The dog illustration reacts to each scenario with a different mood. Temperature, humidity, and UV index appear as quick-read pills below the verdict.\n\nFour visual weather themes switch the background and color palette dynamically. It\'s a small app — but it works, end to end, in real time.',
+        body: 'The app takes your current location (or any city you search), fetches live weather from Open-Meteo, and gives a simple verdict: Good to go, Too hot to walk, Bundle up first, or Maybe wait a bit. The dog illustration reacts to each scenario with a different mood. Temperature, humidity, and UV index appear as quick-read pills below the verdict.\n\nFour visual weather themes switch the background and color palette dynamically. It\'s a small app, but it works, end to end, in real time.',
       },
       {
         heading: 'Lessons from a Pet-Sized Problem',
-        body: 'Finishing this project felt disproportionately good. Not because the app was complex, but because after three unfinished attempts, completing anything at all was significant.\n\nThe real lesson wasn\'t about code. Perfectionism, it turns out, is just a hidden form of avoidance. Waiting to be fully prepared before starting just means never starting. Progress only became visible once I accepted that failure was part of the path — not a detour from it.\n\nThis project gave me the confidence to take on harder problems. Not because I became more skilled overnight, but because I finally had proof that I could ship something. And that proof matters far more than any amount of theory.',
+        body: 'Finishing this project felt disproportionately good. Not because the app was complex, but because after three unfinished attempts, completing anything at all was significant.\n\nThe real lesson wasn\'t about code. Perfectionism, it turns out, is just a hidden form of avoidance. Waiting to be fully prepared before starting just means never starting. Progress only became visible once I accepted that failure was part of the path, not a detour from it.\n\nThis project gave me the confidence to take on harder problems. Not because I became more skilled overnight, but because I finally had proof that I could ship something. And that proof matters far more than any amount of theory.',
       },
     ],
   },
+  {
+    id: '2',
+    slug: 'idx-dashboard',
+    title: 'VanStocks IDX Dashboard',
+    description:
+      'Real-time market intelligence for Indonesian equities, built end-to-end from the data pipeline to the UI. Dagster orchestrates the ETL, dbt handles transformations, and a TypeScript frontend brings it all together.',
+    tags: ['TypeScript', 'Python', 'dbt', 'Dagster', 'Next.js'],
+    github: 'https://github.com/Jakesinakal/idx-dashboard',
+    demo: 'https://idx-dashboard-three.vercel.app/',
+    color: 'bg-emerald-500/10',
+  },
   // {
-  //   id: '2',
+  //   id: '3',
   //   slug: 'analytics-dashboard',
   //   title: 'Analytics Dashboard',
   //   description:
@@ -179,14 +190,14 @@ export const ACTIVITIES: Activity[] = [
     title: 'My Robotic Thesis Journey',
     category: 'Story',
     description:
-      'How I went from a dead-end Lego robot to building an autonomous mapping machine from scratch — a thesis journey about persistence, mentorship, and 7.5 cm of accuracy.',
+      'How I went from a dead-end Lego robot to building an autonomous mapping machine from scratch, a thesis journey about persistence, mentorship, and 7.5 cm of accuracy.',
     icon: 'code',
     accent: 'cyan',
     image: '/images/activities/skripsi.jpg',
     sections: [
       {
         heading: 'Finding a Real Problem',
-        body: 'I and my friend Azis were searching for a thesis topic when we both agreed we wanted to work on something that would solve real problems—ideally as part of an existing research project. Our search led us to meet Dr. Kristedjo Kurnianto, a researcher at BRIN Serpong. He shared a compelling problem: there was an abandoned building in the BRIN complex that was exposed to contamination. Before the building could be decontaminated, it needed to be mapped out. This sparked our idea: why not use an autonomous robot to map such a dangerous space?',
+        body: 'I and my friend Azis were searching for a thesis topic when we both agreed we wanted to work on something that would solve real problems, ideally as part of an existing research project. Our search led us to meet Dr. Kristedjo Kurnianto, a researcher at BRIN Serpong. He shared a compelling problem: there was an abandoned building in the BRIN complex that was exposed to contamination. Before the building could be decontaminated, it needed to be mapped out. This sparked our idea: why not use an autonomous robot to map such a dangerous space?',
       },
       {
         heading: 'Hope in a Lego Robot',
@@ -194,7 +205,7 @@ export const ACTIVITIES: Activity[] = [
       },
       {
         heading: 'Arguing for a "Meaningful Failure"',
-        body: 'Recognizing this obstacle, we approached our campus advisor to ask permission to design a new robot from scratch to better suit our needs. Initially, our request was rejected. His reasoning: research doesn\'t always have to succeed; if we failed with the Lego robot, we could simply document that failure in our thesis.\n\nBut I disagreed. To me, forcing ourselves to use an inadequate Lego robot wouldn\'t just result in failure—the lessons learned would be hollow. I wanted our failure, if it came, to be genuinely mine, born from my own efforts, not from the inherent limitations of a tool unsuitable for mapping. Eventually, our advisor found a middle ground: we would consult with Dr. Dwi Joko, a professor who deeply understood robotics in our department. If he approved, our advisor would too. When we met with Dr. Dwi and explained our situation, he agreed with our plan to build the robot from scratch and even offered to guide me and Azis.',
+        body: 'Recognizing this obstacle, we approached our campus advisor to ask permission to design a new robot from scratch to better suit our needs. Initially, our request was rejected. His reasoning: research doesn\'t always have to succeed; if we failed with the Lego robot, we could simply document that failure in our thesis.\n\nBut I disagreed. To me, forcing ourselves to use an inadequate Lego robot wouldn\'t just result in failure. The lessons we\'d take away from it would be hollow. I wanted our failure, if it came, to be genuinely mine, born from my own efforts, not from the inherent limitations of a tool unsuitable for mapping. Eventually, our advisor found a middle ground: we would consult with Dr. Dwi Joko, a professor who deeply understood robotics in our department. If he approved, our advisor would too. When we met with Dr. Dwi and explained our situation, he agreed with our plan to build the robot from scratch and even offered to guide me and Azis.',
       },
       {
         heading: 'Reverse Engineering and Dividing Roles',
@@ -207,17 +218,17 @@ export const ACTIVITIES: Activity[] = [
       },
       {
         heading: 'The Robot Comes Alive',
-        body: 'We began purchasing components and, with help from a friend, assembled the robot hardware fully. It took about three months before the robot could finally run. Of course, reality wasn\'t smooth sailing from day one—many adjustments were needed to match our expectations. But for me, these were minor obstacles compared to the much larger hurdles we\'d already overcome.',
+        body: 'We began purchasing components and, with help from a friend, assembled the robot hardware fully. It took about three months before the robot could finally run. Of course, reality wasn\'t smooth sailing from day one. Many adjustments were needed to match our expectations. But for me, these were minor obstacles compared to the much larger hurdles we\'d already overcome.',
         image: '/images/activities/skripsi-robot.jpg',
       },
       {
         heading: 'Testing in the Lobby',
-        body: 'Finally, our robot was ready for testing. We conducted data collection in the lobby of the Nuclear Engineering and Physics Department Building. We chose the lobby intentionally; when facing the actual contaminated building, mapping would naturally begin from the front area, typically a lobby.\n\nDuring this test, I focused on the accuracy of the robot\'s position relative to the map it generated. The results were remarkably encouraging: the robot successfully mapped the entire lobby. Moreover, its accuracy was excellent—with an average deviation of only 7.5 centimeters from the origin point.',
+        body: 'Finally, our robot was ready for testing. We conducted data collection in the lobby of the Nuclear Engineering and Physics Department Building. We chose the lobby intentionally; when facing the actual contaminated building, mapping would naturally begin from the front area, typically a lobby.\n\nDuring this test, I focused on the accuracy of the robot\'s position relative to the map it generated. The results were remarkably encouraging: the robot successfully mapped the entire lobby. Moreover, its accuracy was excellent, with an average deviation of only 7.5 centimeters from the origin point.',
         video: '/images/activities/skripsi-demo.mp4',
       },
       {
         heading: 'Lessons Behind the Thesis',
-        body: 'Looking back on this thesis journey, I feel deeply satisfied. Although we got stuck early on with the aging Lego robot—or to be honest, perhaps because I hadn\'t yet mastered it—I\'m genuinely grateful we found a solution quickly rather than dragging things out in confusion.\n\nThis journey gave me a new perspective: no single discipline can stand alone to achieve great goals. Cross-disciplinary collaboration and teamwork are essential. We shouldn\'t dismiss other fields or assume our own field is superior. For me, this has been one of the most extraordinary experiences I\'ve had so far.',
+        body: 'Looking back on this thesis journey, I feel deeply satisfied. Although we got stuck early on with the aging Lego robot (or to be honest, perhaps because I hadn\'t yet mastered it), I\'m genuinely grateful we found a solution quickly rather than dragging things out in confusion.\n\nThis journey gave me a new perspective: no single discipline can stand alone to achieve great goals. Cross-disciplinary collaboration and teamwork are essential. We shouldn\'t dismiss other fields or assume our own field is superior. For me, this has been one of the most extraordinary experiences I\'ve had so far.',
       },
     ],
     quote: 'This project taught me that innovation often comes not from having all the answers upfront, but from persistence, collaboration, and the willingness to ask for help when needed.',
@@ -243,11 +254,11 @@ export const ACTIVITIES: Activity[] = [
       },
       {
         heading: 'The Rhythm of Decontamination: From Pebbles to Midnight Mapping',
-        body: 'Once I found my rhythm, my confidence grew. I started to speak up and share my ideas. Our daily tasks were highly specific and required immense precision.\n\nWe cleared radiation-exposed soil, rocks, and trash — the majority of the waste consisted of pebbles and stones mixed with dirt. The collected waste had to be precisely labeled and safely transported to a specialized storage facility. Documentation was our lifeline; the movement of the waste was strictly monitored every single day without exception. At the end of an exhausting day, we still sat down together for daily mapping, strategizing which areas needed to be decontaminated the next day.\n\nThe most intense moment occurred a week before the deadline set by the Ministry of Environment and Forestry (KLHK). We had to work at maximum speed, often pulling overtime until midnight. Under this immense time pressure, we truly learned what it meant to work efficiently.',
+        body: 'Once I found my rhythm, my confidence grew. I started to speak up and share my ideas. Our daily tasks were highly specific and required immense precision.\n\nWe cleared radiation-exposed soil, rocks, and trash. The majority of the waste consisted of pebbles and stones mixed with dirt. The collected waste had to be precisely labeled and safely transported to a specialized storage facility. Documentation was our lifeline; the movement of the waste was strictly monitored every single day without exception. At the end of an exhausting day, we still sat down together for daily mapping, strategizing which areas needed to be decontaminated the next day.\n\nThe most intense moment occurred a week before the deadline set by the Ministry of Environment and Forestry (KLHK). We had to work at maximum speed, often pulling overtime until midnight. Under this immense time pressure, we truly learned what it meant to work efficiently.',
       },
       {
         heading: 'Lessons Behind a National Disaster',
-        body: 'The professional world turned out to be vastly different from university life. Yet, there is one crucial common thread between the two: Communication.\n\nIn this project, I learned to set my ego aside. Collaborating in the field demands extra patience and mutual understanding. What made this experience so invaluable was the opportunity to interact with various key stakeholders — from the affected local residents and experts from KBRN (Chemical, Biological, Radiological, and Nuclear defense) and NUBIKA, to representatives from KLHK.\n\nThere was a profound sense of pride in playing a role in resolving this national crisis alongside them.',
+        body: 'The professional world turned out to be vastly different from university life. Yet, there is one crucial common thread between the two: Communication.\n\nIn this project, I learned to set my ego aside. Collaborating in the field demands extra patience and mutual understanding. What made this experience so invaluable was the opportunity to interact with various key stakeholders, including local residents affected by the contamination, experts from KBRN (Chemical, Biological, Radiological, and Nuclear defense) and NUBIKA, and representatives from KLHK.\n\nThere was a profound sense of pride in playing a role in resolving this national crisis alongside them.',
       },
       {
         heading: 'Epilogue: A New Perspective',
@@ -262,7 +273,7 @@ export const ACTIVITIES: Activity[] = [
     title: 'Experience From Nuclear to Oil n Gas Reliability',
     category: 'Story',
     description:
-      'Three months inside Pertamina RU VI Balongan\'s refinery — where nuclear control theory unexpectedly became the bridge into oil & gas reliability engineering.',
+      'Three months inside Pertamina RU VI Balongan\'s refinery, where nuclear control theory unexpectedly became the bridge into oil & gas reliability engineering.',
     icon: 'rocket',
     accent: 'cyan',
     image: '/images/activities/pertamina.jpg',

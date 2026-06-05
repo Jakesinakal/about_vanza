@@ -55,7 +55,7 @@ export default function Hero() {
 
             <motion.div {...fadeUp(0.4)} className="relative">
               <p className="text-base leading-[1.8] text-slate-600 dark:text-slate-400 max-w-lg">
-                From nuclear engineering to data systems — I apply rigorous problem-solving
+                From nuclear engineering to data systems, I apply rigorous problem-solving
                 to design scalable pipelines, architect ETL/ELT workflows, and build
                 full-stack applications that turn raw data into real insight.
               </p>

@@ -25,7 +25,7 @@ export default function Projects() {
             </h2>
           </div>
           <p className="text-sm text-slate-500 dark:text-slate-400 max-w-xs leading-relaxed">
-            A selection of data engineering and full-stack projects — built for scale, clarity,
+            A selection of data engineering and full-stack projects, built for scale, clarity,
             and real-world impact.
           </p>
         </div>

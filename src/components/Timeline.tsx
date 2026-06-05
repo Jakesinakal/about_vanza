@@ -33,7 +33,7 @@ export default function Timeline() {
             The Evolution
           </h2>
           <p className="text-base leading-[1.8] text-slate-500 dark:text-slate-400">
-            From nuclear engineering foundations to building data systems at scale — a career
+            From nuclear engineering foundations to building data systems at scale, a career
             shaped by curiosity and the belief that rigorous thinking applies everywhere.
           </p>
         </div>

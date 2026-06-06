@@ -111,6 +111,30 @@ export const PROJECTS: Project[] = [
     demo: 'https://idx-dashboard-three.vercel.app/',
     color: 'bg-emerald-500/10',
   },
+  {
+    id: '3',
+    slug: 'jembatani',
+    title: 'JembaTani',
+    description:
+      'A marketplace that connects farmers directly with buyers, cutting out the middlemen that erode grower margins. Backed by Supabase, with a Google Gemini assistant built in to help users navigate the platform.',
+    tags: ['React', 'TypeScript', 'Supabase', 'Gemini AI', 'Tailwind CSS'],
+    github: 'https://github.com/Jakesinakal/jembatani-app',
+    demo: 'https://jembatani-app.vercel.app',
+    metric: 'AI-Powered',
+    color: 'bg-amber-500/10',
+  },
+  {
+    id: '4',
+    slug: 'running-point',
+    title: 'Running Point',
+    description:
+      'A route planner for runners built on the Google Maps API. Search a place, map out your run, and measure the distance before you ever lace up.',
+    tags: ['React', 'Vite', 'Google Maps API', 'JavaScript'],
+    github: 'https://github.com/Jakesinakal/running-point',
+    demo: 'https://running-point.vercel.app/',
+    metric: 'Google Maps',
+    color: 'bg-rose-500/10',
+  },
   // {
   //   id: '3',
   //   slug: 'analytics-dashboard',

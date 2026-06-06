@@ -3,7 +3,7 @@ import type { Project, TimelineMilestone, MotivationCard, Activity } from './typ
 export const PERSONAL_INFO = {
   name: 'Van Za',
   fullName: 'Van Za Aimar',
-  title: 'Data Engineer & Full-Stack Developer',
+  title: 'Data Engineer & Full-Stack Web Developer',
   location: 'Cirebon, Indonesia',
   email: 'officialvanza.id@gmail.com',
   linkedin: 'https://linkedin.com/in/vanzaaimarrochman',

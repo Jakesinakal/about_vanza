@@ -1,12 +1,11 @@
 'use client';
 
-import { useState, useRef, useCallback } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import {
-  IconCode, IconPencil, IconTrophy, IconUsers, IconRocket,
-  IconChevronLeft, IconChevronRight,
+  IconCode, IconPencil, IconTrophy, IconUsers, IconRocket, IconArrowRight,
 } from '@tabler/icons-react';
 import { ACTIVITIES } from '@/lib/constants';
 import type { Activity } from '@/lib/types';
@@ -16,50 +15,21 @@ const ICONS: Record<Activity['icon'], React.ElementType> = {
   users: IconUsers, rocket: IconRocket,
 };
 
-const ACCENT: Record<Activity['accent'], {
-  bg: string; text: string; label: string;
-}> = {
-  cyan:    { bg: 'bg-cyan-500/10',    text: 'text-cyan-500',    label: 'text-cyan-400'    },
-  violet:  { bg: 'bg-violet-500/10',  text: 'text-violet-500',  label: 'text-violet-400'  },
-  amber:   { bg: 'bg-amber-500/10',   text: 'text-amber-500',   label: 'text-amber-400'   },
-  emerald: { bg: 'bg-emerald-500/10', text: 'text-emerald-500', label: 'text-emerald-400' },
-  rose:    { bg: 'bg-rose-500/10',    text: 'text-rose-500',    label: 'text-rose-400'    },
+const ACCENT: Record<Activity['accent'], { bg: string; text: string; label: string; border: string }> = {
+  cyan:    { bg: 'bg-cyan-500/10',    text: 'text-cyan-500',    label: 'text-cyan-400',    border: 'border-cyan-500'    },
+  violet:  { bg: 'bg-violet-500/10',  text: 'text-violet-500',  label: 'text-violet-400',  border: 'border-violet-500'  },
+  amber:   { bg: 'bg-amber-500/10',   text: 'text-amber-500',   label: 'text-amber-400',   border: 'border-amber-500'   },
+  emerald: { bg: 'bg-emerald-500/10', text: 'text-emerald-500', label: 'text-emerald-400', border: 'border-emerald-500' },
+  rose:    { bg: 'bg-rose-500/10',    text: 'text-rose-500',    label: 'text-rose-400',    border: 'border-rose-500'    },
 };
 
-const COUNT  = ACTIVITIES.length;
-const DEG    = 360 / COUNT;
-const RADIUS = 280;
-
 export default function Activities() {
-  const router   = useRouter();
-  const discRef  = useRef<HTMLDivElement>(null);
-  const angleRef = useRef(0);
-
+  const router = useRouter();
   const [activeIndex, setActiveIndex] = useState(0);
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
-  const writeAngle = (angle: number) => {
-    if (!discRef.current) return;
-    angleRef.current = angle;
-    discRef.current.style.transition = 'transform 0.7s cubic-bezier(0.22, 1, 0.36, 1)';
-    discRef.current.style.transform  = `rotateY(${angle}deg)`;
-  };
-
-  const navigate = useCallback((dir: 1 | -1) => {
-    const steps = Math.round(-angleRef.current / DEG) + dir;
-    writeAngle(-steps * DEG);
-    setActiveIndex(((steps % COUNT) + COUNT) % COUNT);
-  }, []);
-
-  const goTo = useCallback((target: number) => {
-    const steps   = Math.round(-angleRef.current / DEG);
-    const current = ((steps % COUNT) + COUNT) % COUNT;
-    let   diff    = target - current;
-    if (diff >  COUNT / 2) diff -= COUNT;
-    if (diff < -COUNT / 2) diff += COUNT;
-    writeAngle(-(steps + diff) * DEG);
-    setActiveIndex(target);
-  }, []);
+  const active = ACTIVITIES[activeIndex];
+  const Icon = ICONS[active.icon];
+  const accent = ACCENT[active.accent];
 
   return (
     <section id="activities" className="py-32 overflow-hidden">
@@ -71,7 +41,7 @@ export default function Activities() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-16 max-w-xl"
+          className="mb-12 max-w-xl"
         >
           <p className="text-xs font-semibold tracking-widest uppercase text-cyan-500 mb-3">
             My Activities
@@ -84,214 +54,137 @@ export default function Activities() {
           </p>
         </motion.div>
 
-        {/* Carousel stage */}
-        <div
-          className="relative select-none"
-          style={{ perspective: '1100px', height: '380px' }}
-        >
-          <div
-            ref={discRef}
-            style={{
-              position: 'absolute',
-              left: '50%',
-              top: '50%',
-              width: 0,
-              height: 0,
-              transformStyle: 'preserve-3d',
-              transform: 'rotateY(0deg)',
-              transition: 'transform 0.7s cubic-bezier(0.22, 1, 0.36, 1)',
-            }}
-          >
+        {/* Split layout */}
+        <div className="flex flex-col lg:flex-row gap-6 lg:gap-10 lg:items-stretch">
+
+          {/* Left: activity list */}
+          <div className="flex flex-row lg:flex-col gap-2 overflow-x-auto lg:overflow-visible pb-1 lg:pb-0 lg:w-64 shrink-0">
             {ACTIVITIES.map((activity, i) => {
-              const Icon   = ICONS[activity.icon];
-              const accent = ACCENT[activity.accent];
+              const ItemIcon = ICONS[activity.icon];
+              const itemAccent = ACCENT[activity.accent];
+              const isActive = i === activeIndex;
+
               return (
                 <button
                   key={activity.id}
-                  onClick={() => {
-                    if (i === activeIndex && !activity.comingSoon) {
-                      router.push(`/activities/${activity.slug}`);
-                    } else {
-                      goTo(i);
-                    }
-                  }}
-                  style={{
-                    position: 'absolute',
-                    left: '-140px',
-                    top: '-140px',
-                    width: '280px',
-                    height: '280px',
-                    transform: `rotateY(${i * DEG}deg) translateZ(${RADIUS}px)`,
-                    backfaceVisibility: 'hidden',
-                    cursor: i === activeIndex ? 'default' : 'pointer',
-                  }}
-                  aria-label={activity.title}
-                  onMouseEnter={() => { if (i === activeIndex && !activity.comingSoon) setHoveredIndex(i); }}
-                  onMouseLeave={() => setHoveredIndex(null)}
+                  onClick={() => setActiveIndex(i)}
+                  className={`group flex items-center gap-3 px-4 py-3.5 rounded-xl text-left transition-all duration-200 shrink-0 lg:shrink border ${
+                    isActive
+                      ? 'bg-surface dark:bg-midnight-soft border-slate-200 dark:border-slate-700'
+                      : 'border-transparent hover:bg-surface dark:hover:bg-midnight-soft hover:border-slate-200 dark:hover:border-slate-700'
+                  }`}
                 >
-                  <div className="relative w-full h-full rounded-2xl border border-slate-200 dark:border-slate-800 bg-surface dark:bg-midnight-soft overflow-hidden flex flex-col text-left">
-
-                    {activity.comingSoon ? (
-                      /* ── Coming Soon card ── */
-                      <>
-                        {activity.video ? (
-                          <video
-                            src={activity.video}
-                            autoPlay
-                            loop
-                            muted
-                            playsInline
-                            className="absolute inset-0 w-full h-full object-cover opacity-50 grayscale"
-                          />
-                        ) : activity.image && (
-                          <div className="absolute inset-0 overflow-hidden rounded-2xl">
-                            <Image
-                              src={activity.image}
-                              alt={activity.title}
-                              fill
-                              className="object-cover opacity-40 grayscale"
-                              sizes="280px"
-                            />
-                          </div>
-                        )}
-                        <div className="relative z-10 flex flex-col items-center justify-center h-full gap-3 p-6">
-                          <motion.span
-                            className="text-sm font-semibold tracking-widest uppercase text-white border border-dashed border-white/50 rounded-full px-5 py-2"
-                            animate={{ opacity: [0.5, 1, 0.5], scale: [0.97, 1, 0.97] }}
-                            transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
-                          >
-                            Coming Soon
-                          </motion.span>
-                        </div>
-                      </>
-                    ) : activity.image ? (
-                      /* ── Photo card ── */
-                      <>
-                        {/* Image with subtle zoom on hover */}
-                        <div className="absolute inset-0 overflow-hidden rounded-2xl">
-                          <Image
-                            src={activity.image}
-                            alt={activity.title}
-                            fill
-                            className="object-cover"
-                            sizes="280px"
-                            style={{
-                              transform: hoveredIndex === i ? 'scale(1.07)' : 'scale(1)',
-                              transition: 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)',
-                              objectPosition: activity.imagePosition ?? 'center center',
-                            }}
-                          />
-                        </div>
-                        {/* Permanent bottom gradient */}
-                        <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-                        {/* Normal state: title at bottom */}
-                        <div
-                          className="relative z-10 flex flex-col justify-end h-full p-5"
-                          style={{
-                            opacity: hoveredIndex === i ? 0 : 1,
-                            transition: 'opacity 0.25s ease',
-                          }}
-                        >
-                          <p className={`text-[10px] font-semibold tracking-widest uppercase mb-1 ${accent.label}`}>
-                            {activity.category}
-                          </p>
-                          <h3 className="text-base font-semibold text-white leading-tight">
-                            {activity.title}
-                          </h3>
-                        </div>
-                      </>
-                    ) : (
-                      /* ── Icon card (no photo) ── */
-                      <div className="relative z-10 flex flex-col h-full p-6">
-                        <div className={`w-11 h-11 rounded-xl ${accent.bg} flex items-center justify-center mb-5 shrink-0`}>
-                          <Icon size={22} stroke={1.5} className={accent.text} />
-                        </div>
-                        <p className={`text-[10px] font-semibold tracking-widest uppercase mb-2 ${accent.text}`}>
-                          {activity.category}
-                        </p>
-                        <h3 className="text-base font-semibold text-slate-800 dark:text-slate-100 leading-tight">
-                          {activity.title}
-                        </h3>
-                      </div>
-                    )}
-
-                    {/* Hover reveal overlay — transparent gradient so background shows through */}
-                    <div
-                      className="absolute inset-0 z-20 flex flex-col justify-end p-6 bg-gradient-to-t from-black/80 via-black/40 to-transparent"
-                      style={{
-                        transform: hoveredIndex === i ? 'translateY(0)' : 'translateY(100%)',
-                        transition: 'transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)',
-                      }}
-                    >
-                      <p
-                        className={`text-[10px] font-semibold tracking-widest uppercase mb-1.5 ${accent.label}`}
-                        style={{
-                          opacity: hoveredIndex === i ? 1 : 0,
-                          transform: hoveredIndex === i ? 'translateY(0)' : 'translateY(10px)',
-                          transition: 'opacity 0.35s 0.15s ease, transform 0.35s 0.15s ease',
-                        }}
-                      >
-                        {activity.category}
-                      </p>
-                      <h3
-                        className="text-base font-semibold text-white leading-tight mb-3"
-                        style={{
-                          opacity: hoveredIndex === i ? 1 : 0,
-                          transform: hoveredIndex === i ? 'translateY(0)' : 'translateY(10px)',
-                          transition: 'opacity 0.35s 0.22s ease, transform 0.35s 0.22s ease',
-                        }}
-                      >
-                        {activity.title}
-                      </h3>
-                      <p
-                        className="text-sm leading-relaxed text-slate-300"
-                        style={{
-                          opacity: hoveredIndex === i ? 1 : 0,
-                          transform: hoveredIndex === i ? 'translateY(0)' : 'translateY(10px)',
-                          transition: 'opacity 0.35s 0.30s ease, transform 0.35s 0.30s ease',
-                        }}
-                      >
-                        {activity.description}
-                      </p>
-                    </div>
+                  <div className={`w-0.5 h-6 rounded-full shrink-0 transition-all duration-300 ${isActive ? itemAccent.border : 'border-transparent'} border-l-2`} />
+                  <div className={`w-8 h-8 rounded-lg ${isActive ? itemAccent.bg : 'bg-slate-100 dark:bg-slate-800'} flex items-center justify-center shrink-0 transition-colors duration-200`}>
+                    <ItemIcon size={16} stroke={1.5} className={isActive ? itemAccent.text : 'text-slate-400 dark:text-slate-500'} />
+                  </div>
+                  <div className="min-w-0">
+                    <p className={`text-[10px] font-semibold tracking-widest uppercase mb-0.5 transition-colors duration-200 ${isActive ? itemAccent.label : 'text-slate-400 dark:text-slate-500'}`}>
+                      {activity.category}
+                    </p>
+                    <p className={`text-sm font-medium leading-tight truncate transition-colors duration-200 ${isActive ? 'text-slate-800 dark:text-slate-100' : 'text-slate-500 dark:text-slate-400'}`}>
+                      {activity.title}
+                    </p>
                   </div>
                 </button>
               );
             })}
           </div>
 
-          <button
-            onClick={() => navigate(-1)}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-11 h-11 flex items-center justify-center rounded-full bg-slate-900/40 dark:bg-white/10 text-white backdrop-blur-sm opacity-50 hover:opacity-95 transition-opacity duration-200"
-            aria-label="Previous activity"
-          >
-            <IconChevronLeft size={20} />
-          </button>
-          <button
-            onClick={() => navigate(1)}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-11 h-11 flex items-center justify-center rounded-full bg-slate-900/40 dark:bg-white/10 text-white backdrop-blur-sm opacity-50 hover:opacity-95 transition-opacity duration-200"
-            aria-label="Next activity"
-          >
-            <IconChevronRight size={20} />
-          </button>
-        </div>
+          {/* Right: active card */}
+          <div className="flex-1 min-h-[420px] lg:min-h-0">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeIndex}
+                className="relative w-full h-full min-h-[420px] rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800"
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              >
+                {active.comingSoon ? (
+                  <>
+                    {active.video ? (
+                      <video
+                        src={active.video}
+                        autoPlay loop muted playsInline
+                        className="absolute inset-0 w-full h-full object-cover opacity-50 grayscale"
+                      />
+                    ) : active.image && (
+                      <Image
+                        src={active.image} alt={active.title} fill
+                        className="object-cover opacity-40 grayscale"
+                        sizes="(max-width: 1024px) 100vw, 800px"
+                      />
+                    )}
+                    <div className="relative z-10 flex flex-col items-center justify-center h-full gap-4 p-10 bg-black/20">
+                      <motion.span
+                        className="text-sm font-semibold tracking-widest uppercase text-white border border-dashed border-white/50 rounded-full px-6 py-2.5"
+                        animate={{ opacity: [0.5, 1, 0.5], scale: [0.97, 1, 0.97] }}
+                        transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+                      >
+                        Coming Soon
+                      </motion.span>
+                      <p className="text-base text-white/60 text-center max-w-sm">{active.title}</p>
+                    </div>
+                  </>
+                ) : active.image ? (
+                  <>
+                    <Image
+                      src={active.image} alt={active.title} fill
+                      className="object-cover"
+                      sizes="(max-width: 1024px) 100vw, 800px"
+                      style={{ objectPosition: active.imagePosition ?? 'center center' }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                    <div className="absolute inset-0 z-10 flex flex-col justify-end p-8 lg:p-10">
+                      <p className={`text-[10px] font-semibold tracking-widest uppercase mb-2 ${accent.label}`}>
+                        {active.category}
+                      </p>
+                      <h3 className="text-2xl lg:text-3xl font-semibold text-white leading-tight mb-3">
+                        {active.title}
+                      </h3>
+                      <p
+                        className="text-sm leading-relaxed text-slate-300 max-w-lg mb-6"
+                        style={{
+                          display: '-webkit-box',
+                          WebkitLineClamp: 3,
+                          WebkitBoxOrient: 'vertical',
+                          overflow: 'hidden',
+                        }}
+                      >
+                        {active.description}
+                      </p>
+                      <button
+                        onClick={() => router.push(`/activities/${active.slug}`)}
+                        className="self-start flex items-center gap-2 text-sm font-semibold px-5 py-2.5 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white border border-white/20 transition-all duration-200 group"
+                      >
+                        Read Story
+                        <IconArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-0.5" />
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  <div className="relative z-10 flex flex-col h-full p-10 bg-surface dark:bg-midnight-soft">
+                    <div className={`w-12 h-12 rounded-xl ${accent.bg} flex items-center justify-center mb-6 shrink-0`}>
+                      <Icon size={24} stroke={1.5} className={accent.text} />
+                    </div>
+                    <p className={`text-[10px] font-semibold tracking-widest uppercase mb-2 ${accent.text}`}>
+                      {active.category}
+                    </p>
+                    <h3 className="text-2xl font-semibold text-slate-800 dark:text-slate-100 leading-tight mb-4">
+                      {active.title}
+                    </h3>
+                    <p className="text-sm leading-relaxed text-slate-500 dark:text-slate-400 max-w-lg">
+                      {active.description}
+                    </p>
+                  </div>
+                )}
+              </motion.div>
+            </AnimatePresence>
+          </div>
 
-        {/* Dot indicators */}
-        <div className="flex justify-center items-center gap-2 mt-4">
-          {ACTIVITIES.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => goTo(i)}
-              className={`rounded-full transition-all duration-300 ${
-                i === activeIndex
-                  ? 'w-5 h-2 bg-cyan-500'
-                  : 'w-2 h-2 bg-slate-300 dark:bg-slate-600 hover:bg-slate-400 dark:hover:bg-slate-500'
-              }`}
-              aria-label={`Go to ${ACTIVITIES[i].title}`}
-            />
-          ))}
         </div>
-
       </div>
     </section>
   );
